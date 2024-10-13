@@ -22,6 +22,12 @@ const ExpaenseAccount =require("./routes/Pillar Pole/AccountRouts/ExpenseAccount
 const SalesRep =require("./routes/Pillar Pole/AccountRouts/SalesRep")
 const Company =require("./routes/Pillar Pole/AccountRouts/Company")
 const PostBill =require("./routes/Pillar Pole/AccountRouts/PostBills")
+const BankDepositeTransfer =require("./routes/Pillar Pole/AccountRouts/BankDepositTransfer")
+const BankOpeningBal =require("./routes/Pillar Pole/AccountRouts/BankopeningBal")
+const AccountType =require("./routes/Pillar Pole/AccountRouts/AccountType")
+const Acheads =require("./routes/Pillar Pole/AccountRouts/AcHeads")
+const AccountChart =require("./routes/Pillar Pole/AccountRouts/AccountChart")
+
 
 
 
@@ -55,6 +61,11 @@ app.use("/api",ExpaenseAccount)
 app.use("/api",SalesRep)
 app.use("/api",Company)
 app.use("/api",PostBill)
+app.use("/api",BankDepositeTransfer)
+app.use("/api",BankOpeningBal)
+app.use("/api",AccountType)
+app.use("/api",Acheads)
+app.use("/api",AccountChart)
 
 
 

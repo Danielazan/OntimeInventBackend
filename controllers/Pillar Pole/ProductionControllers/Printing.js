@@ -7,7 +7,7 @@ const {
   
   async function deleteTable() {
     try {
-        await NewProduction.drop();
+        await Printing.drop();
         console.log("Table deleted successfully.");
     } catch (error) {
         console.error("Error deleting table:", error);
@@ -17,45 +17,37 @@ const {
   const CreatePrinting = async (req, res) => {
     const {
         ProductName,
-          Category,
-          NoRolls,
-          NoItems,
-          Location,
-          Customer,
-          Quantity,
-          Waste,
-          NameOperator,
-          Shift,
-          Type,
-          Machine,
-          MaterialName,
-          QtyName,
-          BatchNo,
-          Key,
-          NoRollUsed,
-          Date
+      NoRolls,
+      Location,
+      Customer,
+      Quantity,
+      Waste,
+      NameOperator,
+      Shift,
+      Type,
+      Machine,
+      MaterialsUsed,
+      BatchNo,
+      Key,
+      Date,
     } = req.body;
   
     try {
       const pro = await Printing.create({
-        ProductName,
-          Category,
-          NoRolls,
-          NoItems,
-          Location,
-          Customer,
-          Quantity,
-          Waste,
-          NameOperator,
-          Shift,
-          Type,
-          Machine,
-          MaterialName,
-          QtyName,
-          BatchNo,
-          Key,
-          NoRollUsed,
-          Date
+         ProductName,
+      NoRolls,
+      Location,
+      Customer,
+      Quantity,
+      Waste,
+      NameOperator,
+      Shift,
+      Type,
+      Machine,
+      MaterialsUsed,
+      BatchNo,
+      Key,
+      Date,
       }).then((result) => {
         res.status(200).json(result);
         return result;
@@ -93,48 +85,40 @@ const {
     const Productid = req.params.id;
   
     const {
-        ProductName,
-          Category,
-          NoRolls,
-          NoItems,
-          Location,
-          Customer,
-          Quantity,
-          Waste,
-          NameOperator,
-          Shift,
-          Type,
-          Machine,
-          MaterialName,
-          QtyName,
-          BatchNo,
-          Key,
-          NoRollUsed,
-          Date
+         ProductName,
+      NoRolls,
+      Location,
+      Customer,
+      Quantity,
+      Waste,
+      NameOperator,
+      Shift,
+      Type,
+      Machine,
+      MaterialsUsed,
+      BatchNo,
+      Key,
+      Date,
     } = req.body;
   
     try {
       // Update the database with the new image path
       Printing.update(
         {
-            ProductName,
-          Category,
-          NoRolls,
-          NoItems,
-          Location,
-          Customer,
-          Quantity,
-          Waste,
-          NameOperator,
-          Shift,
-          Type,
-          Machine,
-          MaterialName,
-          QtyName,
-          BatchNo,
-          Key,
-          NoRollUsed,
-          Date
+             ProductName,
+      NoRolls,
+      Location,
+      Customer,
+      Quantity,
+      Waste,
+      NameOperator,
+      Shift,
+      Type,
+      Machine,
+      MaterialsUsed,
+      BatchNo,
+      Key,
+      Date,
         },
         { where: { id: Productid } }
       )

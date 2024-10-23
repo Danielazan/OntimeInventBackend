@@ -10,18 +10,18 @@ class  Printing extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      Category: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
+      // Category: {
+      //   type: DataTypes.STRING,
+      //   allowNull: false
+      // },
       NoRolls: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      NoItems:{
-        type: DataTypes.STRING,
-        allowNull: false
-      },
+      // NoItems:{
+      //   type: DataTypes.STRING,
+      //   allowNull: false
+      // },
       Location:{
         type: DataTypes.STRING,
         allowNull: false
@@ -54,14 +54,14 @@ class  Printing extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      MaterialName: {
+      MaterialsUsed: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      QtyName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
+      // QtyName: {
+      //   type: DataTypes.STRING,
+      //   allowNull: false
+      // },
       BatchNo: {
         type: DataTypes.STRING,
         allowNull: false
@@ -70,10 +70,10 @@ class  Printing extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      NoRollUsed: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
+      // NoRollUsed: {
+      //   type: DataTypes.STRING,
+      //   allowNull: false
+      // },
       Date: {
         type: DataTypes.DATE,
         allowNull: false

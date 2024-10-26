@@ -27,6 +27,7 @@ const {
       Type,
       Machine,
       MaterialsUsed,
+      PrintingMachineUsed,
       BatchNo,
       Key,
       Date,
@@ -34,7 +35,7 @@ const {
   
     try {
       const pro = await Printing.create({
-         ProductName,
+          ProductName,
       NoRolls,
       Location,
       Customer,
@@ -45,6 +46,7 @@ const {
       Type,
       Machine,
       MaterialsUsed,
+      PrintingMachineUsed,
       BatchNo,
       Key,
       Date,
@@ -85,7 +87,7 @@ const {
     const Productid = req.params.id;
   
     const {
-         ProductName,
+          ProductName,
       NoRolls,
       Location,
       Customer,
@@ -96,6 +98,7 @@ const {
       Type,
       Machine,
       MaterialsUsed,
+      PrintingMachineUsed,
       BatchNo,
       Key,
       Date,
@@ -105,7 +108,7 @@ const {
       // Update the database with the new image path
       Printing.update(
         {
-             ProductName,
+              ProductName,
       NoRolls,
       Location,
       Customer,
@@ -116,6 +119,7 @@ const {
       Type,
       Machine,
       MaterialsUsed,
+      PrintingMachineUsed,
       BatchNo,
       Key,
       Date,

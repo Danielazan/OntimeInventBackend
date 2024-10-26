@@ -58,6 +58,10 @@ class  Printing extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
+      PrintingMachineUsed: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       // QtyName: {
       //   type: DataTypes.STRING,
       //   allowNull: false

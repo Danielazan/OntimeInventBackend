@@ -7,7 +7,7 @@ const {
   
   async function deleteTable() {
     try {
-        await NewProduction.drop();
+        await Cutting.drop();
         console.log("Table deleted successfully.");
     } catch (error) {
         console.error("Error deleting table:", error);
@@ -16,25 +16,20 @@ const {
   
   const CreateCutting = async (req, res) => {
     const {
-        ProductName,
-          NoBundles,
-          Date,
-          NameOperator,
-          Shift,
-          Quantity,
-          Waste,
-          Location,
-          Machine,
-          Category,
-          Customer,
-          MaterialUsed,
-          QtyUsed,
-          NoRolls,
-          CoreWeight,
-          NoItems,
-          BatchNo,
-          Key,
-          Type,
+      ProductName,
+      NoBundles,
+      Date,
+      NameOperator,
+      Shift,
+      Quantity,
+      Waste,
+      Location,
+      Machine,
+      Customer,
+      MaterialsUsed,
+      BatchNo,
+      Key,
+      Type,
     } = req.body;
   
     try {
@@ -48,13 +43,8 @@ const {
         Waste,
         Location,
         Machine,
-        Category,
         Customer,
-        MaterialUsed,
-        QtyUsed,
-        NoRolls,
-        CoreWeight,
-        NoItems,
+        MaterialsUsed,
         BatchNo,
         Key,
         Type
@@ -95,50 +85,40 @@ const {
     const Productid = req.params.id;
   
     const {
-        ProductName,
-        NoBundles,
-        Date,
-        NameOperator,
-        Shift,
-        Quantity,
-        Waste,
-        Location,
-        Machine,
-        Category,
-        Customer,
-        MaterialUsed,
-        QtyUsed,
-        NoRolls,
-        CoreWeight,
-        NoItems,
-        BatchNo,
-        Key,
-        Type,
+      ProductName,
+      NoBundles,
+      Date,
+      NameOperator,
+      Shift,
+      Quantity,
+      Waste,
+      Location,
+      Machine,
+      Customer,
+      MaterialsUsed,
+      BatchNo,
+      Key,
+      Type,
     } = req.body;
   
     try {
       // Update the database with the new image path
       Cutting.update(
         {
-            ProductName,
-            NoBundles,
-            Date,
-            NameOperator,
-            Shift,
-            Quantity,
-            Waste,
-            Location,
-            Machine,
-            Category,
-            Customer,
-            MaterialUsed,
-            QtyUsed,
-            NoRolls,
-            CoreWeight,
-            NoItems,
-            BatchNo,
-            Key,
-            Type,
+          ProductName,
+          NoBundles,
+          Date,
+          NameOperator,
+          Shift,
+          Quantity,
+          Waste,
+          Location,
+          Machine,
+          Customer,
+          MaterialsUsed,
+          BatchNo,
+          Key,
+          Type,
         },
         { where: { id: Productid } }
       )

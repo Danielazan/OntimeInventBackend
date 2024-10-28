@@ -42,31 +42,11 @@ class  Cutting extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      Category: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       Customer:{
         type: DataTypes.STRING,
         allowNull: false
       },
-      MaterialUsed: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      QtyUsed: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      NoRolls: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      CoreWeight: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      NoItems:{
+      MaterialsUsed:{
         type: DataTypes.STRING,
         allowNull: false
       },

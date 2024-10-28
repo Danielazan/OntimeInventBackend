@@ -10,15 +10,7 @@ class  NewProduction extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      Category: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       NoRolls: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      NoItems:{
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -50,19 +42,15 @@ class  NewProduction extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
+      MaterialsUsed: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       Type:{
         type: DataTypes.STRING,
         allowNull: false
       },
       Machine: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      MaterialName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      QtyName: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -74,18 +62,11 @@ class  NewProduction extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      NoRollUsed: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      NoItems: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       Date: {
         type: DataTypes.DATE,
         allowNull: false
       },
+
     }, {
       sequelize, // Pass the sequelize instance
       modelName: 'NewProductions' // Set the model name

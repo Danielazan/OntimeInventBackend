@@ -2,15 +2,15 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  PurchaseProduct extends Model{}
+class  JProduct extends Model{}
 
 
- PurchaseProduct.init({
+ JProduct.init({
       ProductName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      QuantityBought: {
+      TotalQuantity: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -20,7 +20,7 @@ class  PurchaseProduct extends Model{}
       },
       SellingPrice: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
       },
       Category: {
         type: DataTypes.STRING,
@@ -34,20 +34,23 @@ class  PurchaseProduct extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
-      Location: {
+      QtyIn: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Company: {
+      QtyOut: {
         type: DataTypes.STRING,
         allowNull: false
       },
-   
+      Balance: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       
     
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'PurchaseProducts' // Set the model name
+      modelName: 'JProducts' // Set the model name
     });
 
 
@@ -55,4 +58,4 @@ class  PurchaseProduct extends Model{}
 
 
 
-module.exports = {PurchaseProduct};
+module.exports = {JProduct};

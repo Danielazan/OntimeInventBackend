@@ -27,6 +27,21 @@ const BankOpeningBal =require("./routes/Pillar Pole/AccountRouts/BankopeningBal"
 const AccountType =require("./routes/Pillar Pole/AccountRouts/AccountType")
 const Acheads =require("./routes/Pillar Pole/AccountRouts/AcHeads")
 const AccountChart =require("./routes/Pillar Pole/AccountRouts/AccountChart")
+const SupplierReport =require("./routes/Pillar Pole/SupplierRoutes/SupplierReport")
+
+// justice Apis
+const JusticeCatory =require("./routes/JusticePapperMill/StockRoutes/Category")
+const JusticeProducts = require("./routes/JusticePapperMill/StockRoutes/Products")
+const PurchaseStocks = require("./routes/JusticePapperMill/StockRoutes/PurchaseStocks")
+const StocksProduction = require("./routes/JusticePapperMill/StockRoutes/StockProduction")
+const StocksOpeningBal = require("./routes/JusticePapperMill/StockRoutes/StockOpeningBal")
+const JusticeStocksTransfer = require("./routes/JusticePapperMill/StockRoutes/StockTransfer")
+const JStockused = require("./routes/JusticePapperMill/StockRoutes/StockUsed")
+const JNewSupplier = require("./routes/JusticePapperMill/SuppliersRoutes/NewSuppliers")
+const JSupplierReport = require("./routes/JusticePapperMill/SuppliersRoutes/SupplierReport")
+const JMakeSales = require("./routes/JusticePapperMill/SalesRoutes/MakeSales")
+const JNewCustomers = require("./routes/JusticePapperMill/CustomerRoutes/NewCustomers")
+
 
 
 
@@ -54,6 +69,7 @@ app.use("/api",Cutting)
 app.use("/api",Printing)
 app.use("/api",Recycle)
 app.use("/api",Supplier)
+app.use("/api",SupplierReport)
 app.use("/api",Sales)
 app.use("/api",WayBill)
 app.use("/api",Refund)
@@ -67,6 +83,21 @@ app.use("/api",AccountType)
 app.use("/api",Acheads)
 app.use("/api",AccountChart)
 
+// Justices Apis
+app.use("/api",JusticeCatory)
+ app.use("/api",JusticeProducts)
+ app.use("/api",PurchaseStocks)
+ app.use("/api",StocksProduction)
+ app.use("/api",StocksOpeningBal)
+ app.use("/api",JusticeStocksTransfer)
+ app.use("/api",JStockused)
+ app.use("/api",JNewSupplier)
+ app.use("/api",JSupplierReport)
+ app.use("/api",JMakeSales)
+ app.use("/api",JNewCustomers)
+
+ 
+ 
 
 
 

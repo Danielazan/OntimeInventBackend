@@ -2,52 +2,66 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  PurchaseProduct extends Model{}
+class  JSales extends Model{}
 
 
- PurchaseProduct.init({
+ JSales.init({
       ProductName: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      QuantityBought: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      CostPrice: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      SellingPrice: {
-        type: DataTypes.STRING,
-        allowNull: true
       },
       Category: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      InvoiceNumber: {
+      Quantity: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      DatePurchased: {
-        type: DataTypes.DATE,
+      UnitPrice: {
+        type: DataTypes.STRING,
         allowNull: false
       },
       Location: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Company: {
+      Date: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      Customer: {
         type: DataTypes.STRING,
         allowNull: false
       },
-   
+      PhoneNumbr: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Address: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Credit: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      OldBalance: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      InvoiceNo: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      NoItems: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       
-    
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'PurchaseProducts' // Set the model name
+      modelName: 'JSales' // Set the model name
     });
 
 
@@ -55,4 +69,4 @@ class  PurchaseProduct extends Model{}
 
 
 
-module.exports = {PurchaseProduct};
+module.exports = {JSales};

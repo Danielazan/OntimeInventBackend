@@ -1,11 +1,11 @@
-const { PurchaseProduct } = require("../../../models/Pillar Pole/StockModels/PurchaseProduct");
+const { PurchaseStocks } = require("../../../models/JusticePapperMill/StockModels/PurchaseStocks");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
 async function deleteTable() {
   try {
-      await PurchaseProduct.drop();
+      await PurchaseStocks.drop();
       console.log("Table deleted successfully.");
   } catch (error) {
       console.error("Error deleting table:", error);
@@ -28,7 +28,7 @@ const AddPurchase = async (req, res) => {
 
   try {
 
-    const pro = await PurchaseProduct.create({
+    const pro = await PurchaseStocks.create({
         ProductName, 
             Category ,
             CostPrice,
@@ -51,7 +51,7 @@ const AddPurchase = async (req, res) => {
 
 const GetAllPurchase = async (req, res) => {
   try {
-    const Cat = await PurchaseProduct.findAll().then((result) => {
+    const Cat = await PurchaseStocks.findAll().then((result) => {
       res.status(200).json(result.reverse());
     });
   } catch (error) {
@@ -64,7 +64,7 @@ const GetSingleProducts = async(req,res)=>{
   
   try {
 
-    const Getone = await PurchaseProduct.findOne({where: {id:ProductId}}).then(result =>{
+    const Getone = await PurchaseStocks.findOne({where: {id:ProductId}}).then(result =>{
       res.status(200).json({result})
     })
   } catch (error) {
@@ -87,7 +87,7 @@ const UpdateProducts = async (req, res) => {
 
   try {
     // Update the database with the new image path
-    PurchaseProduct.update(
+    PurchaseStocks.update(
       {
         Category,
         TotalQuantity,
@@ -119,7 +119,7 @@ const DeleteProducts = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const Cat = await PurchaseProduct.destroy({
+    const Cat = await PurchaseStocks.destroy({
       where: { id },
       cascade: true,
     }).then((result) => {

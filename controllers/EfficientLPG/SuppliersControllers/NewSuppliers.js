@@ -1,33 +1,35 @@
-const { JCustomer } = require("../../../models/JusticePapperMill/CustomersModels/NewCustomer");
+const { EfficientNewSupplier } = require("../../../models/EfficientLPG/SuppliersModels/NewSuppliers");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
 
+async function deleteTable() {
+    try {
+        await EfficientNewSupplier.drop();
+        console.log("Table deleted successfully.");
+    } catch (error) {
+        console.error("Error deleting table:", error);
+    }
+  }
 
-const CreateCustomer = async (req, res) => {
+const CreateSupplier = async (req, res) => {
   
 
   const {
     Name,
-      Address,
-      PhoneNumber,
-      CreditLimit,
-      OpeningBalCredit,
-      OpeningBalDebit,
-      
+    Address,
+    PhoneNumber,
+   
+
   } = req.body;
 
   try {
 
-    const pro = await JCustomer.create({
+    const pro = await EfficientNewSupplier.create({
         Name,
-      Address,
-      PhoneNumber,
-      CreditLimit,
-      OpeningBalCredit,
-      OpeningBalDebit,
-      
+        Address,
+        PhoneNumber,
         
     }).then((result) => {
       res.status(200).json(result);
@@ -38,9 +40,9 @@ const CreateCustomer = async (req, res) => {
   }
 };
 
-const GetAllCustomer = async (req, res) => {
+const GetAllSupplier = async (req, res) => {
   try {
-    const Cat = await JCustomer.findAll().then((result) => {
+    const Cat = await EfficientNewSupplier.findAll().then((result) => {
       res.status(200).json(result.reverse());
     });
   } catch (error) {
@@ -48,12 +50,12 @@ const GetAllCustomer = async (req, res) => {
   }
 };
 
-const GetSingleCustomer = async(req,res)=>{
-  const CustomerId = req.params.id
+const GetSingleSupplier = async(req,res)=>{
+  const SupplierId = req.params.id
   
   try {
 
-    const Getone = await JCustomer.findOne({where: {id:CustomerId}}).then(result =>{
+    const Getone = await EfficientNewSupplier.findOne({where: {id:SupplierId}}).then(result =>{
       res.status(200).json({result})
     })
   } catch (error) {
@@ -62,29 +64,24 @@ const GetSingleCustomer = async(req,res)=>{
 
 }
 
-const UpdateCustomer = async (req, res) => {
-    const Customerid = req.params.id;
+const UpdateSupplier = async (req, res) => {
+    const Supplierid = req.params.id;
     
-    const {Name,
-      Address,
-      PhoneNumber,
-      CreditLimit,
-      OpeningBalCredit,
-      OpeningBalDebit} = req.body;
+    const { Name,
+        Address,
+        PhoneNumber,
+         } = req.body;
 
   try {
     // Update the database with the new image path
-    JCustomer.update(
+    EfficientNewSupplier.update(
       {
         Name,
-      Address,
-      PhoneNumber,
-      CreditLimit,
-      OpeningBalCredit,
-      OpeningBalDebit,
-      
+        Address,
+        PhoneNumber,
+        
       },
-      { where: { id: Customerid } }
+      { where: { id: Supplierid } }
     )
       .then(() => {
         res.status(200).json({ message: "Record updated successfully" });
@@ -99,11 +96,11 @@ const UpdateCustomer = async (req, res) => {
 
 
 
-const DeleteCustomer = async (req, res) => {
+const DeleteSupplier = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const Cat = await JCustomer.destroy({
+    const Cat = await EfficientNewSupplier.destroy({
       where: { id },
       cascade: true,
     }).then((result) => {
@@ -115,9 +112,9 @@ const DeleteCustomer = async (req, res) => {
 };
 
 module.exports = {
-    CreateCustomer,
-    GetAllCustomer ,
-    GetSingleCustomer,
-    DeleteCustomer,
-    UpdateCustomer
+    CreateSupplier,
+    GetAllSupplier ,
+    GetSingleSupplier,
+    DeleteSupplier,
+    UpdateSupplier
 };

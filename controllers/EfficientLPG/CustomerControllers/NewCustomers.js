@@ -1,4 +1,4 @@
-const { JCustomer } = require("../../../models/JusticePapperMill/CustomersModels/NewCustomer");
+const { ECustomer } = require("../../../models/EfficientLPG/CustomerModels/NewCustomer");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
@@ -20,7 +20,7 @@ const CreateCustomer = async (req, res) => {
 
   try {
 
-    const pro = await JCustomer.create({
+    const pro = await ECustomer.create({
         Name,
       Address,
       PhoneNumber,
@@ -40,7 +40,7 @@ const CreateCustomer = async (req, res) => {
 
 const GetAllCustomer = async (req, res) => {
   try {
-    const Cat = await JCustomer.findAll().then((result) => {
+    const Cat = await ECustomer.findAll().then((result) => {
       res.status(200).json(result.reverse());
     });
   } catch (error) {
@@ -53,7 +53,7 @@ const GetSingleCustomer = async(req,res)=>{
   
   try {
 
-    const Getone = await JCustomer.findOne({where: {id:CustomerId}}).then(result =>{
+    const Getone = await ECustomer.findOne({where: {id:CustomerId}}).then(result =>{
       res.status(200).json({result})
     })
   } catch (error) {
@@ -66,15 +66,15 @@ const UpdateCustomer = async (req, res) => {
     const Customerid = req.params.id;
     
     const {Name,
-      Address,
-      PhoneNumber,
-      CreditLimit,
-      OpeningBalCredit,
-      OpeningBalDebit} = req.body;
+        Address,
+        PhoneNumber,
+        CreditLimit,
+        OpeningBalCredit,
+        OpeningBalDebit} = req.body;
 
   try {
     // Update the database with the new image path
-    JCustomer.update(
+    ECustomer.update(
       {
         Name,
       Address,
@@ -103,7 +103,7 @@ const DeleteCustomer = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const Cat = await JCustomer.destroy({
+    const Cat = await ECustomer.destroy({
       where: { id },
       cascade: true,
     }).then((result) => {

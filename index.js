@@ -41,6 +41,21 @@ const JNewSupplier = require("./routes/JusticePapperMill/SuppliersRoutes/NewSupp
 const JSupplierReport = require("./routes/JusticePapperMill/SuppliersRoutes/SupplierReport")
 const JMakeSales = require("./routes/JusticePapperMill/SalesRoutes/MakeSales")
 const JNewCustomers = require("./routes/JusticePapperMill/CustomerRoutes/NewCustomers")
+const Jrecptvocher = require("./routes/JusticePapperMill/SalesRoutes/ReciptVocher")
+const JDriverReg = require("./routes/JusticePapperMill/SalesRoutes/DriverReg")
+const JWayBill = require("./routes/JusticePapperMill/SalesRoutes/WayBill")
+const JSalesRep = require("./routes/JusticePapperMill/CustomerRoutes/SalesRep")
+const JRefund = require("./routes/JusticePapperMill/CustomerRoutes/Refund")
+
+// Efficient Apis
+const ENewProducts = require("./routes/EfficientLPG/ProductsRoutes/NewProducts")
+const EPumps = require("./routes/EfficientLPG/ProductsRoutes/Pump")
+const EStockRecieveds = require("./routes/EfficientLPG/ProductsRoutes/StockRecieved")
+const EReturnProducts = require("./routes/EfficientLPG/ProductsRoutes/ReturnProducts")
+const ENewCustomers= require("./routes/EfficientLPG/CustomersRoutes/NewCustomer")
+const EProductTransfer= require("./routes/EfficientLPG/ProductsRoutes/ProductTransfer")
+const ENewSupplier= require("./routes/EfficientLPG/SupplierRoutes/NewSupplier")
+const EAccountReport= require("./routes/EfficientLPG/SupplierRoutes/AccountReport")
 
 
 
@@ -95,6 +110,21 @@ app.use("/api",JusticeCatory)
  app.use("/api",JSupplierReport)
  app.use("/api",JMakeSales)
  app.use("/api",JNewCustomers)
+ app.use("/api",Jrecptvocher)
+ app.use("/api",JDriverReg)
+ app.use("/api",JWayBill)
+app.use("/api", JSalesRep)
+app.use("/api", JRefund)
+
+// Efficient Apis
+app.use("/api",ENewProducts)
+app.use("/api",EPumps)
+app.use("/api",EStockRecieveds)
+app.use("/api",EReturnProducts)
+app.use("/api",ENewCustomers)
+app.use("/api",EProductTransfer)
+app.use("/api",ENewSupplier)
+app.use("/api",EAccountReport)
 
  
  

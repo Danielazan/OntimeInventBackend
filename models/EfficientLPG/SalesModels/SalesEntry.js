@@ -2,19 +2,11 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  ESalesEnntry extends Model{}
+class  ESalesEntry extends Model{}
 
 
- ESalesEnntry.init({
+ ESalesEntry.init({
       ProductName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Category: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Quantity: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -22,7 +14,15 @@ class  ESalesEnntry extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      Location: {
+      PumpNo: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      PumpAttendant: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      OpeningReading: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -30,11 +30,23 @@ class  ESalesEnntry extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
-      Customer: {
+      ClosingReading: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      PhoneNumbr: {
+      QuantitySold: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Total: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Location: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      PhoneNo: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -42,11 +54,15 @@ class  ESalesEnntry extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      Credit: {
+      Testing: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      OldBalance: {
+      Variation: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Deeping: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -54,23 +70,15 @@ class  ESalesEnntry extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      NoItems: {
+      CashPaid: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      AmountPaid: {
+      Pos: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      CustomerBank: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      TransactionMode: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      TransactionAccount: {
+      Transfer: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -81,7 +89,7 @@ class  ESalesEnntry extends Model{}
       
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'EfficientSalesEnntry' // Set the model name
+      modelName: 'EfficientSalesEntry' // Set the model name
     });
 
 
@@ -89,4 +97,4 @@ class  ESalesEnntry extends Model{}
 
 
 
-module.exports = {ESalesEnntry};
+module.exports = {ESalesEntry};

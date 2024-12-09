@@ -46,6 +46,10 @@ const JDriverReg = require("./routes/JusticePapperMill/SalesRoutes/DriverReg")
 const JWayBill = require("./routes/JusticePapperMill/SalesRoutes/WayBill")
 const JSalesRep = require("./routes/JusticePapperMill/CustomerRoutes/SalesRep")
 const JRefund = require("./routes/JusticePapperMill/CustomerRoutes/Refund")
+const JPostBill = require("./routes/JusticePapperMill/AccountRoutes/PostBills")
+const JCompany = require("./routes/JusticePapperMill/AccountRoutes/Company")
+const JExpenseAccount = require("./routes/JusticePapperMill/AccountRoutes/ExpenseAccount")
+
 
 // Efficient Apis
 const ENewProducts = require("./routes/EfficientLPG/ProductsRoutes/NewProducts")
@@ -120,6 +124,9 @@ app.use("/api",JusticeCatory)
  app.use("/api",JWayBill)
 app.use("/api", JSalesRep)
 app.use("/api", JRefund)
+app.use("/api", JPostBill)
+app.use("/api", JCompany)
+app.use("/api", JExpenseAccount)
 
 // Efficient Apis
 app.use("/api",ENewProducts)

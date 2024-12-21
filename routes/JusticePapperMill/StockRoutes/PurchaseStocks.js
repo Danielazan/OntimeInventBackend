@@ -19,7 +19,7 @@ router.get("/jpurchase", GetAllPurchase)
 // router.put("/purchase/:id",Updatepurchase)
 
 
-// router.delete("/purchase/:id",DeleteProducts)
+router.delete("/jpurchase/:id",DeleteProducts)
 
 
 

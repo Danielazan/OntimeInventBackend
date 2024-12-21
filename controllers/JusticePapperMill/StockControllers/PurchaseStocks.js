@@ -89,15 +89,14 @@ const UpdateProducts = async (req, res) => {
     // Update the database with the new image path
     PurchaseStocks.update(
       {
-        Category,
-        TotalQuantity,
+        ProductName, 
+        Category ,
         CostPrice,
+        QuantityBought,
         SellingPrice,
         InvoiceNumber,
+        Location,
         DatePurchased,
-        QtyIn,
-        QtyOut,
-        Balance,
         Company
       },
       { where: { id: Productid } }

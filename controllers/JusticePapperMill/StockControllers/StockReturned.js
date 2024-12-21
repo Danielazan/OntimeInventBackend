@@ -1,51 +1,43 @@
 const {
-    ReciptVocher
-  } = require("../../../models/JusticePapperMill/SalesModels/ReciptVocher");
+    PillarStockReturn
+  } = require("../../../models/JusticePapperMill/StockModels/StockReturn");
   const multer = require("multer");
   const fs = require("fs");
   const path = require("path");
   
   async function deleteTable() {
     try {
-        await ReciptVocher.drop();
+        await PillarStockReturn.drop();
         console.log("Table deleted successfully.");
     } catch (error) {
         console.error("Error deleting table:", error);
     }
   }
   
-  const CreateReciptVocher = async (req, res) => {
+  const CreateReturnProduct = async (req, res) => {
     const {
         ProductName,
-      Quantity,
-      UnitPrice,
-      Date,
-      Customer,
-      PhoneNumbr,
-      Address,
-      Credit,
-      OldBalance,
-      InvoiceNo,
-      AmountPaid,
-      TransactionMode,
-      TransactionAccount,
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
+          Location,
+          Customer,
+          InvoiceNo,
+          ItemsNo,
+          Date,
     } = req.body;
   
     try {
-      const pro = await ReciptVocher.create({
+      const pro = await PillarStockReturn.create({
         ProductName,
-      Quantity,
-      UnitPrice,
-      Date,
-      Customer,
-      PhoneNumbr,
-      Address,
-      Credit,
-      OldBalance,
-      InvoiceNo,
-      AmountPaid,
-      TransactionMode,
-      TransactionAccount,
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
+          Location,
+          Customer,
+          InvoiceNo,
+          ItemsNo,
+          Date,
       }).then((result) => {
         res.status(200).json(result);
         return result;
@@ -53,13 +45,11 @@ const {
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
-    // deleteTable()
   };
   
-  const GetAllReciptVochers = async (req, res) => {
+  const GetAllReturnProducts = async (req, res) => {
     try {
-      
-      const Cat = await ReciptVocher.findAll().then((result) => {
+      const Cat = await PillarStockReturn.findAll().then((result) => {
         res.status(200).json(result.reverse());
       });
     } catch (error) {
@@ -67,12 +57,11 @@ const {
     }
   };
   
-  const GetSingleReciptVocher = async (req, res) => {
+  const GetSingleReturnProduct = async (req, res) => {
     const ProductId = req.params.id;
   
     try {
-      
-      const Getone = await ReciptVocher.findOne({ where: { id: ProductId } }).then(
+      const Getone = await PillarStockReturn.findOne({ where: { id: ProductId } }).then(
         (result) => {
           res.status(200).json({ result });
         }
@@ -82,46 +71,34 @@ const {
     }
   };
   
-  const UpdateReciptVocher = async (req, res) => {
+  const UpdateReturnProduct = async (req, res) => {
     const Productid = req.params.id;
   
     const {
         ProductName,
-      Quantity,
-      UnitPrice,
- 
-      Date,
-      Customer,
-      PhoneNumbr,
-      Address,
-      Credit,
-      OldBalance,
-      InvoiceNo,
-      AmountPaid,
-   
-      TransactionMode,
-      TransactionAccount,
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
+          Location,
+          Customer,
+          InvoiceNo,
+          ItemsNo,
+          Date,
     } = req.body;
   
     try {
       // Update the database with the new image path
-      ReciptVocher.update(
+      PillarStockReturn.update(
         {
             ProductName,
-      Quantity,
-      UnitPrice,
- 
-      Date,
-      Customer,
-      PhoneNumbr,
-      Address,
-      Credit,
-      OldBalance,
-      InvoiceNo,
-      AmountPaid,
-   
-      TransactionMode,
-      TransactionAccount,
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
+          Location,
+          Customer,
+          InvoiceNo,
+          ItemsNo,
+          Date,
         },
         { where: { id: Productid } }
       )
@@ -136,11 +113,11 @@ const {
     }
   };
   
-  const DeleteReciptVocher = async (req, res) => {
+  const DeleteReturnProduct = async (req, res) => {
     try {
       const { id } = req.params;
   
-      const Cat = await ReciptVocher.destroy({
+      const Cat = await PillarStockReturn.destroy({
         where: { id },
         cascade: true,
       }).then((result) => {
@@ -152,10 +129,10 @@ const {
   };
   
   module.exports = {
-      CreateReciptVocher,
-      GetAllReciptVochers,
-      GetSingleReciptVocher,
-      UpdateReciptVocher,
-      DeleteReciptVocher,
+    CreateReturnProduct,
+    GetAllReturnProducts,
+    GetSingleReturnProduct,
+    UpdateReturnProduct,
+    DeleteReturnProduct,
   };
   

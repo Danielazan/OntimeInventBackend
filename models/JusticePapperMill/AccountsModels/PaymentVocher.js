@@ -2,19 +2,15 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  ReciptVocher extends Model{}
+class  JPaymentVocher extends Model{}
 
 
- ReciptVocher.init({
-      ProductName: {
+ JPaymentVocher.init({
+      ExpenseAccountName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Quantity: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      UnitPrice: {
+      SalesSupplierRep: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -22,27 +18,19 @@ class  ReciptVocher extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
-      Customer: {
+      PayingAccount: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      PhoneNumbr: {
+      Location: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Address: {
+      Description: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Credit: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      OldBalance: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      InvoiceNo: {
+      PV: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -50,19 +38,9 @@ class  ReciptVocher extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-   
-      TransactionMode: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      TransactionAccount: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'ReciptVocher' // Set the model name
+      modelName: 'JusticePaymentVochers' // Set the model name
     });
 
 
@@ -70,4 +48,4 @@ class  ReciptVocher extends Model{}
 
 
 
-module.exports = {ReciptVocher};
+module.exports = {JPaymentVocher};

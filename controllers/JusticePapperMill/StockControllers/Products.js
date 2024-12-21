@@ -1,9 +1,16 @@
-const { JProduct } = require("../../../models/JusticePapperMill/StockModels/Product");
+const { JProduct,JStockLedger } = require("../../../models/JusticePapperMill/StockModels/Product");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-
+async function deleteTable() {
+  try {
+      await JStockLedger.drop();
+      console.log("Table deleted successfully.");
+  } catch (error) {
+      console.error("Error deleting table:", error);
+  }
+}
 
 const CreateProducts = async (req, res) => {
   
@@ -13,16 +20,13 @@ const CreateProducts = async (req, res) => {
   try {
 
     const pro = await JProduct.create({
-        ProductName,
-        Category,
-        TotalQuantity:0,
-        CostPrice:0,
-        SellingPrice:0,
-        InvoiceNumber:0,
-        DatePurchased:0,
-        QtyIn:0,
-        QtyOut:0,
-        Balance:0
+      ProductName,
+      TotalQuantity:"0",
+      CostPrice:"0",
+      SellingPrice:"0",
+      Category,
+      InvoiceNumber:"0",
+      DatePurchased:"0",
         
     }).then((result) => {
       res.status(200).json(result);
@@ -35,7 +39,12 @@ const CreateProducts = async (req, res) => {
 
 const GetAllProducts = async (req, res) => {
   try {
-    const Cat = await JProduct.findAll().then((result) => {
+    const Cat = await JProduct.findAll({
+      include: [{
+          model: JStockLedger,
+          // as: 'JStockLedger' // Use the alias if you defined one in your model
+      }]
+  }).then((result) => {
       res.status(200).json(result.reverse());
     });
   } catch (error) {
@@ -57,24 +66,72 @@ const GetSingleProducts = async(req,res)=>{
 
 }
 
-const UpdateProductsSales = async (req, res) => {
+const GetSingleProductsByName = async(req,res)=>{
+  const {ProductNamed} = req.body
+  
+  try {
+
+    const Getone = await JProduct.findOne({where: {ProductName:ProductNamed}}).then(result =>{
+      res.status(200).json(result)
+    })
+  } catch (error) {
+    res.status(400).json({error:error.message})
+  }
+
+}
+
+const GetAllStockCard = async (req, res) => {
+  try {
+    const Cat = await JStockLedger.findAll().then((result) => {
+      res.status(200).json(result.reverse());
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const UpdateProductsPurchase = async (req, res) => {
   const Name = req.params.Name;
   
   const {
-      
+      ProductName,
+      TotalQuantity,
+      CostPrice,
+      SellingPrice,
+      Category,
+      InvoiceNumber,
+      DatePurchased,  
     Quantity } = req.body;
 
 try {
   const Getone = await JProduct.findOne({where: {ProductName: Name}})
-   
-  const Total = await Getone.TotalQuantity -Quantity
-  const out = await Getone.QtyOut + Quantity
 
-  console.log(Total)
-  JProduct.update(
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Name)
+   
+  const Total = await Number(Getone.TotalQuantity) + Number(Quantity)
+  // const out = await Getone.QtyOut + Quantity
+
+  JStockLedger.create({
+    Date: DatePurchased,
+    InvoiceNo: InvoiceNumber,
+    Particulars:"From Stock Purchase",
+    QtyIn: Quantity,
+    QtyOut: 0,
+    Balance: Total,
+    StockName:Getone.id // Use ProductName from Getone
+});
+
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
+
+   JProduct.update(
     {
+      ProductName,
       TotalQuantity:Total,
-      QtyOut:out
+      CostPrice,
+      SellingPrice,
+      Category,
+      InvoiceNumber,
+      DatePurchased,  
     },
     { where: { ProductName: Name } }
   )
@@ -84,6 +141,60 @@ try {
     .catch((dbError) => {
       res.status(500).json({ error: dbError.message });
     });
+    
+
+    // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
+};
+
+const UpdateProductSales = async (req, res) => {
+  const Name = req.params.Name;
+  
+  const {
+      Date,
+      Quantity,
+      InvoiceNumber,
+      DatePurchased,  
+     } = req.body;
+
+try {
+  const Getone = await JProduct.findOne({where: {ProductName: Name}})
+
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Name)
+   
+  const Total = await Number(Getone.TotalQuantity) - Number(Quantity)
+  const out = await Number(Getone.QtyOut) + Number(Quantity)
+
+  JStockLedger.create({
+    Date: Date,
+    InvoiceNo: InvoiceNumber,
+    Particulars:"From Sales",
+    QtyIn: "0",
+    QtyOut: Quantity,
+    Balance: Total,
+    StockName:Getone.id // Use ProductName from Getone
+});
+
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
+
+   JProduct.update(
+    {
+      TotalQuantity:Total,
+      InvoiceNumber,
+    },
+    { where: { ProductName: Name } }
+  )
+    .then(() => {
+      res.status(200).json({ message: "Record updated successfully" });
+    })
+    .catch((dbError) => {
+      res.status(500).json({ error: dbError.message });
+    });
+    
+
+    // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
 } catch (error) {
   res.status(400).json({ error: error.message });
 }
@@ -94,29 +205,24 @@ const UpdateProducts = async (req, res) => {
     const Productid = req.params.id;
     
     const {ProductName,
-        Category,
-        TotalQuantity,
-        CostPrice,
-        SellingPrice,
-        InvoiceNumber,
-        DatePurchased,
-        QtyIn,
-        QtyOut,
-        Balance } = req.body;
+      TotalQuantity,
+      CostPrice,
+      SellingPrice,
+      Category,
+      InvoiceNumber,
+      DatePurchased,} = req.body;
 
   try {
     // Update the database with the new image path
     JProduct.update(
       {
-        Category,
+        ProductName,
         TotalQuantity,
         CostPrice,
         SellingPrice,
+        Category,
         InvoiceNumber,
         DatePurchased,
-        QtyIn,
-        QtyOut,
-        Balance
       },
       { where: { id: Productid } }
     )
@@ -154,5 +260,8 @@ module.exports = {
     GetSingleProducts,
     DeleteProducts,
     UpdateProducts,
-    UpdateProductsSales
+    UpdateProductsPurchase,
+    GetSingleProductsByName,
+    UpdateProductSales,
+    GetAllStockCard
 };

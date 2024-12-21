@@ -28,6 +28,7 @@ const AccountType =require("./routes/Pillar Pole/AccountRouts/AccountType")
 const Acheads =require("./routes/Pillar Pole/AccountRouts/AcHeads")
 const AccountChart =require("./routes/Pillar Pole/AccountRouts/AccountChart")
 const SupplierReport =require("./routes/Pillar Pole/SupplierRoutes/SupplierReport")
+const PaymentVocher =require("./routes/Pillar Pole/AccountRouts/Payment")
 
 // justice Apis
 const JusticeCatory =require("./routes/JusticePapperMill/StockRoutes/Category")
@@ -49,6 +50,16 @@ const JRefund = require("./routes/JusticePapperMill/CustomerRoutes/Refund")
 const JPostBill = require("./routes/JusticePapperMill/AccountRoutes/PostBills")
 const JCompany = require("./routes/JusticePapperMill/AccountRoutes/Company")
 const JExpenseAccount = require("./routes/JusticePapperMill/AccountRoutes/ExpenseAccount")
+const JPaymentVocher = require("./routes/JusticePapperMill/AccountRoutes/PaymentVocher")
+const JBankDepositTransfers = require("./routes/JusticePapperMill/AccountRoutes/BankDepositTransfer")
+const JOpeningBal = require("./routes/JusticePapperMill/AccountRoutes/BankOpeningClosing")
+const JAcheads = require("./routes/JusticePapperMill/AccountRoutes/AcHeads")
+const Jacchart = require("./routes/JusticePapperMill/AccountRoutes/AccountChart")
+const JaccountType = require("./routes/JusticePapperMill/AccountRoutes/AccountType")
+const JDeleteItems = require("./routes/JusticePapperMill/DeleteRoutes/DeleteItems")
+const JStockReturn = require("./routes/JusticePapperMill/StockRoutes/StockReturn")
+const JCashFlow = require("./routes/JusticePapperMill/AccountRoutes/CashFlow")
+
 
 
 // Efficient Apis
@@ -106,6 +117,7 @@ app.use("/api",BankOpeningBal)
 app.use("/api",AccountType)
 app.use("/api",Acheads)
 app.use("/api",AccountChart)
+app.use("/api",PaymentVocher)
 
 // Justices Apis
 app.use("/api",JusticeCatory)
@@ -127,6 +139,15 @@ app.use("/api", JRefund)
 app.use("/api", JPostBill)
 app.use("/api", JCompany)
 app.use("/api", JExpenseAccount)
+app.use("/api", JPaymentVocher)
+app.use("/api", JBankDepositTransfers)
+app.use("/api", JOpeningBal)
+app.use("/api", JAcheads)
+app.use("/api", Jacchart)
+app.use("/api", JaccountType)
+app.use("/api", JDeleteItems)
+app.use("/api", JStockReturn)
+app.use("/api", JCashFlow)
 
 // Efficient Apis
 app.use("/api",ENewProducts)

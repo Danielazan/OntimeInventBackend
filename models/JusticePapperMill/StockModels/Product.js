@@ -34,28 +34,54 @@ class  JProduct extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
-      QtyIn: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      QtyOut: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Balance: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       
-    
     }, {
       sequelize, // Pass the sequelize instance
       modelName: 'JProducts' // Set the model name
     });
 
+    class JStockLedger extends Model {}
+
+    JStockLedger.init({
+          Date: {
+            type: DataTypes.DATE,
+            allowNull: false
+          },
+          InvoiceNo: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+          Particulars: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+          QtyIn: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+          QtyOut: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+          Balance: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+          StockName: {
+            type: DataTypes.INTEGER, // Change to STRING to match ProductName's type
+            references: {
+                model: JProduct,
+                key: 'id' // Reference the correct field here
+            }
+        }
+    }, {
+        sequelize,
+        modelName: 'JStockLedger'
+    });
+
+ // Establish relationships
+ JProduct.hasMany(JStockLedger, { foreignKey: 'StockName'});
+ JStockLedger.belongsTo(JProduct, { foreignKey: 'StockName'});
 
 
-
-
-
-module.exports = {JProduct};
+module.exports = {JProduct,JStockLedger};

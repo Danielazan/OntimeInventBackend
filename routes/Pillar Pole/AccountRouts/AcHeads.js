@@ -9,7 +9,7 @@ const express = require("express")
 
 const router = express.Router()
 
-router.post('A',CreateAcHeadss)
+router.post('/acheads',CreateAcHeadss)
 
 router.get("/acheads", GetAllAcHeadss)
 

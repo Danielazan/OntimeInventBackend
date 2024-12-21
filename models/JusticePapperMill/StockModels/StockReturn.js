@@ -2,43 +2,31 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  ReciptVocher extends Model{}
+class  PillarStockReturn extends Model{}
 
 
- ReciptVocher.init({
+PillarStockReturn .init({
       ProductName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Quantity: {
+      QtyRecived: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      UnitPrice: {
+      Unitprice: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Date: {
-        type: DataTypes.DATE,
+      PurchasePrice: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Location: {
+        type: DataTypes.STRING,
         allowNull: false
       },
       Customer: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      PhoneNumbr: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Address: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Credit: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      OldBalance: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -46,23 +34,19 @@ class  ReciptVocher extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      AmountPaid: {
+      ItemsNo: {
         type: DataTypes.STRING,
         allowNull: false
       },
-   
-      TransactionMode: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      TransactionAccount: {
-        type: DataTypes.STRING,
+      Date: {
+        type: DataTypes.DATE,
         allowNull: false
       },
       
+    
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'ReciptVocher' // Set the model name
+      modelName: 'PillarPoleStockReturn ' // Set the model name
     });
 
 
@@ -70,4 +54,4 @@ class  ReciptVocher extends Model{}
 
 
 
-module.exports = {ReciptVocher};
+module.exports = {PillarStockReturn};

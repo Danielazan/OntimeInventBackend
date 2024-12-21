@@ -1,8 +1,16 @@
-const { JCategory } = require("../../../models/JusticePapperMill/StockModels/Category")
+const { JCategory,JProductCat } = require("../../../models/JusticePapperMill/StockModels/Category")
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
+async function deleteTable() {
+  try {
+      await JProductCat.drop();
+      console.log("Table deleted successfully.");
+  } catch (error) {
+      console.error("Error deleting table:", error);
+  }
+}
 
 
 const CreateCategory = async (req, res) => {
@@ -25,7 +33,14 @@ const CreateCategory = async (req, res) => {
 
 const GetAllcategory = async (req, res) => {
   try {
-    const Cat = await JCategory.findAll().then((result) => {
+    const Cat = await JCategory.findAll(
+      {
+        include: [{
+          model: JProductCat,
+          // as: 'JStockLedger' // Use the alias if you defined one in your model
+      }]
+      }
+    ).then((result) => {
       res.status(200).json(result);
     });
   } catch (error) {
@@ -71,6 +86,31 @@ const UpdateCategory = async (req, res) => {
   }
 };
 
+const UpdateCategoryBasedOnproduct = async (req, res) => {
+  const CatName = req.params.CatName;
+  const {Name} = req.body;
+  
+  const Getone = await JCategory.findOne({where: {Name: CatName}})
+
+  try {
+    // Update the database with the new image path
+    JProductCat.create(
+      {
+        Name,
+        ProCategory:Getone.id
+      }
+    )
+      .then(() => {
+        res.status(200).json({ message: `Record updated successfully ` });
+      })
+      .catch((dbError) => {
+        res.status(500).json({ error: dbError.message });
+      });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const DeleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,5 +131,6 @@ module.exports = {
     GetAllcategory ,
     GetSingleCategory,
     UpdateCategory,
-    DeleteCategory
+    DeleteCategory,
+    UpdateCategoryBasedOnproduct
 };

@@ -3,7 +3,8 @@ const {
     GetAllcategory ,
     GetSingleCategory,
     UpdateCategory,
-    DeleteCategory
+    DeleteCategory,
+    UpdateCategoryBasedOnproduct
 
  } = require("../../../controllers/JusticePapperMill/StockControllers/Category")
 const express = require("express")
@@ -17,6 +18,8 @@ router.get("/jcategory",  GetAllcategory)
 router.get("/jcategory/:id",GetSingleCategory)
 
 router.put("/jcategory/:id",UpdateCategory)
+
+router.put("/jcategoryProducts/:CatName",UpdateCategoryBasedOnproduct)
 
 router.delete("/jcategory/:id",DeleteCategory)
 

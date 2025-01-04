@@ -22,7 +22,19 @@ class  JProduct extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
+      TotalQtySold: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       Category: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      TotalAmountQtySold: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      TotalQtyProduced: {
         type: DataTypes.STRING,
         allowNull: false
       },

@@ -139,7 +139,8 @@ const UpdateCustomerByPayment = async (req, res) => {
       Quantity,
       UnitPrice,
       Date,
-      InvoiceNo
+      InvoiceNo,
+      Description
      } = req.body;
 
 try {
@@ -154,13 +155,14 @@ try {
   JCustomerLedger.create({
     Date,
     InvoiceNo,
-    Description:"From Payment Vocher",
+    Description,
     AmountPaid,
     QuantitySupplied:"0",
+    QuantityPaid:Quantity,
     BalanceInCash:Number(Getone.AccountBalance) + Number(AmountPaid),
     BalanceInKg:Number(Getone.CurrentQtyOwedCustomer) +Number(Quantity),
     UnitPrice:UnitPrice,
-    Cr:"0",
+    Cr:AmountPaid,
     Dr:"0",
     CustomerName:Getone.id 
 });
@@ -169,6 +171,7 @@ try {
 
   JCustomer.update(
     {
+      CurrentCashPaid:AmountPaid,
       CurrentQtyPaidFor:Quantity,
       CurrentQtyOwedCustomer:QuaOwed,
       AccountBalance:Number(Getone.AccountBalance)+Number(AmountPaid),
@@ -197,47 +200,72 @@ const UpdateCustomerBySales = async (req, res) => {
       UnitPrice,
       Date,
       InvoiceNo,
-      TotalAmount
+      TotalAmount,
+      Description
      } = req.body;
 
 try {
   const Getone = await JCustomer.findOne({where: {Name: CusName}})
 
-  QuaOwed=Number(Getone.CurrentQtyOwedCustomer)+Number(Quantity)
-  BalInCash=Number(Getone.AccountBalance) - Number(TotalAmount)
-  BalInKg=Number(Getone.BalanceInKg)-Number(Quantity)
-
-  CurrentQuantityPaidFor=Number(Getone.CurrentQtyPaidFor)-Number(Quantity)
+ 
 
   console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Getone)
    
   // const out = await Getone.QtyOut + Quantity
 
-  JCustomerLedger.create({
-    Date,
-    InvoiceNo,
-    Description:"From Payment Sales",
-    AmountPaid:0,
-    QuantitySupplied:Quantity,
-    BalanceInCash:Number(Getone.AccountBalance) - Number(TotalAmount),
-    BalanceInKg:Number(Getone.CurrentQtyOwedCustomer) - Number(Quantity),
-    UnitPrice:UnitPrice,
-    Cr:"0",
-    Dr:"0",
-    CustomerName:Getone.id 
-});
-
 //   // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
 
+    // For Quantity Owed to Customer
+
+  if (Quantity > Number((Getone.CurrentQtyOwedCustomer))){
+    currentqtyowed=0
+  }
+   else if (Quantity == Number((Getone.CurrentQtyOwedCustomer))){
+      currentqtyowed=0
+   }
+   else{
+      currentqtyowed=Number((Getone.CurrentQtyOwedCustomer))- Quantity 
+   }
+
+    // For Current Amount Owed to Customer
+    if (TotalAmount > Number(Getone.AccountBalance)){
+      accountbal=Number(Getone.AccountBalance)-TotalAmount
+      cash=0
+    }
+    else if (TotalAmount == Number(Getone.AccountBalance)){
+      accountbal=0
+      cash =0
+    }
+    else{
+       accountbal=Number(Getone.AccountBalance)-TotalAmount
+
+       cash =accountbal
+    }
   JCustomer.update(
     {
-      CurrentQtyPaidFor:CurrentQuantityPaidFor,
-      CurrentQtyOwedCustomer:Number(Getone.AccountBalance)-Number(TotalAmount),
-      QuantitySupplied:Quantity,
-      AccountBalance:(Number(Getone.AccountBalance)-Number(Quantity))-CurrentQuantityPaidFor,
+      CurrentQtySupplied:Quantity,
+      CurrentQtyOwedCustomer:currentqtyowed,
+      CurrentAmountOwedCustomer:cash,
+      AccountBalance:accountbal,
+      CurrentProductAmountSupplied:TotalAmount
     },
     { where: { Name: CusName } }
-  )
+  );
+
+    JCustomerLedger.create({
+    Date,
+    InvoiceNo,
+    Description,
+    QuantityPaid:0,
+    AmountPaid:0,
+    QuantitySupplied:Quantity,
+    BalanceInCash:accountbal,
+    BalanceInKg:currentqtyowed,
+    UnitPrice:UnitPrice,
+    Cr:"0",
+    Dr:TotalAmount,
+    CustomerName:Getone.id 
+})
     .then(() => {
       res.status(200).json({ message: "Record updated successfully" });
     })

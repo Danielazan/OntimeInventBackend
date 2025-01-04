@@ -5,7 +5,7 @@ const path = require("path");
 
 async function deleteTable() {
   try {
-      await JStockLedger.drop();
+      await JProduct.drop();
       console.log("Table deleted successfully.");
   } catch (error) {
       console.error("Error deleting table:", error);
@@ -27,6 +27,9 @@ const CreateProducts = async (req, res) => {
       Category,
       InvoiceNumber:"0",
       DatePurchased:"0",
+      TotalQtySold:"0",
+      TotalAmountQtySold:"0",
+      TotalQtyProduced:"0",
         
     }).then((result) => {
       res.status(200).json(result);
@@ -50,6 +53,7 @@ const GetAllProducts = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  
 };
 
 const GetSingleProducts = async(req,res)=>{
@@ -157,6 +161,8 @@ const UpdateProductSales = async (req, res) => {
       Quantity,
       InvoiceNumber,
       DatePurchased,  
+      Particulars,
+      AmountPaid
      } = req.body;
 
 try {
@@ -165,12 +171,12 @@ try {
   // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Name)
    
   const Total = await Number(Getone.TotalQuantity) - Number(Quantity)
-  const out = await Number(Getone.QtyOut) + Number(Quantity)
+  
 
   JStockLedger.create({
     Date: Date,
     InvoiceNo: InvoiceNumber,
-    Particulars:"From Sales",
+    Particulars,
     QtyIn: "0",
     QtyOut: Quantity,
     Balance: Total,
@@ -181,6 +187,61 @@ try {
 
    JProduct.update(
     {
+      TotalQtySold:Number(Getone.TotalQtySold) + Number(Quantity),
+      TotalAmountQtySold:Number(Getone.TTotalAmountQtySold) + Number(AmountPaid),
+      TotalQuantity:Total,
+      InvoiceNumber,
+    },
+    { where: { ProductName: Name } }
+  )
+    .then(() => {
+      res.status(200).json({ message: "Record updated successfully" });
+    })
+    .catch((dbError) => {
+      res.status(500).json({ error: dbError.message });
+    });
+    
+
+    // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
+};
+
+const UpdateProductByProduction = async (req, res) => {
+  const Name = req.params.Name;
+  
+  const {
+      Date,
+      Quantity,
+      InvoiceNumber,
+      DatePurchased,  
+      Particulars
+     } = req.body;
+
+try {
+  const Getone = await JProduct.findOne({where: {ProductName: Name}})
+
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Name)
+   
+  const Total = await Number(Getone.TotalQuantity) + Number(Quantity)
+ 
+
+  JStockLedger.create({
+    Date: Date,
+    InvoiceNo: InvoiceNumber,
+    Particulars,
+    QtyIn: Quantity,
+    QtyOut:"0" ,
+    Balance: Total,
+    StockName:Getone.id // Use ProductName from Getone
+});
+
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
+
+   JProduct.update(
+    {
+      TotalQtyProduced:Number(Getone.TotalQtyProduced) + Number(Quantity),
       TotalQuantity:Total,
       InvoiceNumber,
     },
@@ -263,5 +324,6 @@ module.exports = {
     UpdateProductsPurchase,
     GetSingleProductsByName,
     UpdateProductSales,
-    GetAllStockCard
+    GetAllStockCard,
+    UpdateProductByProduction
 };

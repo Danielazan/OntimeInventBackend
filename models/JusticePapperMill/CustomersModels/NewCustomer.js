@@ -87,6 +87,10 @@ class  JCustomer extends Model{}
             type: DataTypes.STRING,
             allowNull: false
           },
+        QuantityPaid: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
           AmountPaid: {
             type: DataTypes.STRING,
             allowNull: false

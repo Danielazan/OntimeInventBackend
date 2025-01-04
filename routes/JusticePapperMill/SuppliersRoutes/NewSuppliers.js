@@ -3,7 +3,9 @@ const {
     GetAllSupplier ,
     GetSingleSupplier,
     DeleteSupplier,
-    UpdateSupplier
+    UpdateSupplier,
+    UpdateSupplierByPurchase ,
+    UpdateSupplierByPayment
  } = require("../../../controllers/JusticePapperMill/SupplierControllers/NewSuppliers")
 
 const express = require("express")
@@ -17,6 +19,10 @@ router.get("/jNewSuppliers",GetAllSupplier)
 router.get("/jNewSuppliers/:id",GetSingleSupplier)
 
 router.put("/jNewSuppliers/:id",UpdateSupplier)
+
+router.put("/jSuppliersPur/:SupName",UpdateSupplierByPurchase )
+
+router.put("/jSuppliersPay/:SupName",UpdateSupplierByPayment )
 
 
 router.delete("/jNewSuppliers/:id",DeleteSupplier)

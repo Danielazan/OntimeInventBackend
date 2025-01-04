@@ -39,7 +39,7 @@ const {
         else{
           CurrentBalance=Number(Cat[0].Balance) + Number(Debit)
         }
-        // console.log(Cat[0].Balance)
+        console.log(Cat[0].Balance)
 
          JCashFlow.create({
             CustomerName,
@@ -62,7 +62,8 @@ const {
     const GetAllCashFlow = async (req, res) => {
       try {
         const Cat = await JCashFlow.findAll().then((result) => {
-          res.status(200).json(result.reverse());
+          // res.status(200).json(result.reverse());
+          res.status(200).json(result);
         });
       } catch (error) {
         res.status(400).json({ error: error.message });

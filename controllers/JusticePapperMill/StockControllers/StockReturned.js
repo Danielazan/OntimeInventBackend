@@ -1,5 +1,5 @@
 const {
-    PillarStockReturn
+    JStockReturn
   } = require("../../../models/JusticePapperMill/StockModels/StockReturn");
   const multer = require("multer");
   const fs = require("fs");
@@ -7,7 +7,7 @@ const {
   
   async function deleteTable() {
     try {
-        await PillarStockReturn.drop();
+        await JStockReturn.drop();
         console.log("Table deleted successfully.");
     } catch (error) {
         console.error("Error deleting table:", error);
@@ -28,7 +28,7 @@ const {
     } = req.body;
   
     try {
-      const pro = await PillarStockReturn.create({
+      const pro = await JStockReturn.create({
         ProductName,
           QtyRecived,
           Unitprice,
@@ -49,7 +49,7 @@ const {
   
   const GetAllReturnProducts = async (req, res) => {
     try {
-      const Cat = await PillarStockReturn.findAll().then((result) => {
+      const Cat = await JStockReturn.findAll().then((result) => {
         res.status(200).json(result.reverse());
       });
     } catch (error) {
@@ -61,7 +61,7 @@ const {
     const ProductId = req.params.id;
   
     try {
-      const Getone = await PillarStockReturn.findOne({ where: { id: ProductId } }).then(
+      const Getone = await JStockReturn.findOne({ where: { id: ProductId } }).then(
         (result) => {
           res.status(200).json({ result });
         }
@@ -88,7 +88,7 @@ const {
   
     try {
       // Update the database with the new image path
-      PillarStockReturn.update(
+      JStockReturn.update(
         {
             ProductName,
           QtyRecived,
@@ -117,7 +117,7 @@ const {
     try {
       const { id } = req.params;
   
-      const Cat = await PillarStockReturn.destroy({
+      const Cat = await JStockReturn.destroy({
         where: { id },
         cascade: true,
       }).then((result) => {

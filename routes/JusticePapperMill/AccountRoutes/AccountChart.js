@@ -3,7 +3,9 @@ const {
   GetAllAccountCharts,
   GetSingleAccountChart,
   DeleteAccountChart,
-  UpdateAccountChart
+  UpdateAccountChart,
+  UpdateAccountByPayment,
+  UpdateAccountByExpenses
  } = require("../../../controllers/JusticePapperMill/AccountControllers/AccountChart")
 const express = require("express")
 
@@ -16,6 +18,10 @@ router.get("/jaccChart", GetAllAccountCharts)
 router.get("/jaccChart/:id",GetSingleAccountChart)
 
 router.put("/jaccChart/:id",UpdateAccountChart)
+
+router.put("/jaccChartPayment/:AccName",UpdateAccountByPayment)
+
+router.put("/jaccChartExpenses/:AccName",UpdateAccountByExpenses)
 
 router.delete("/jaccChart/:id",DeleteAccountChart)
 

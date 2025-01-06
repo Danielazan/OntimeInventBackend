@@ -9,16 +9,16 @@ const express = require("express")
 
 const router = express.Router()
 
-router.post('/PproReturn',CreateReturnProduct)
+router.post('/jproReturn',CreateReturnProduct)
 
-router.get("/PproReturn", GetAllReturnProducts )
+router.get("/jproReturn", GetAllReturnProducts )
 
-router.get("/PproReturn/:id",GetSingleReturnProduct)
+router.get("/jproReturn/:id",GetSingleReturnProduct)
 
-router.put("/PproReturn/:id",UpdateReturnProduct)
+router.put("/jproReturn/:id",UpdateReturnProduct)
 
 
-router.delete("/PproReturn/:id",DeleteReturnProduct)
+router.delete("/jproReturn/:id",DeleteReturnProduct)
 
 
 

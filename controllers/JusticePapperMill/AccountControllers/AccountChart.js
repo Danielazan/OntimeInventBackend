@@ -1,9 +1,18 @@
 const {
-    JAccountChart,
+    JAccountChart,JAccountLeger
   } = require("../../../models/JusticePapperMill/AccountsModels/AccountChart");
   const multer = require("multer");
   const fs = require("fs");
   const path = require("path");
+
+  async function deleteTable() {
+    try {
+        await JAccountChart.drop();
+        console.log("Table deleted successfully.");
+    } catch (error) {
+        console.error("Error deleting table:", error);
+    }
+  }
   
   const CreateAccountCharts = async (req, res) => {
     const { 
@@ -19,7 +28,10 @@ const {
           AccountType, 
           AcHead, 
           profitLoss, 
-          AccountName, 
+          AccountName,
+          TotalAmountRemaing:"0",
+          TotalAmountOut:"0",
+          TotalAmountIn:"0", 
           BalanceSheet
       }).then((result) => {
         res.status(200).json(result);
@@ -32,7 +44,12 @@ const {
   
   const GetAllAccountCharts = async (req, res) => {
     try {
-      const Cat = await JAccountChart.findAll().then((result) => {
+      const Cat = await JAccountChart.findAll({
+        include: [{
+          model: JAccountLeger,
+          // as: 'JStockLedger' // Use the alias if you defined one in your model
+      }]
+      }).then((result) => {
         res.status(200).json(result.reverse());
       });
     } catch (error) {
@@ -85,6 +102,114 @@ const {
       res.status(400).json({ error: error.message });
     }
   };
+
+  const UpdateAccountByPayment = async (req, res) => {
+    const AccName = req.params.AccName;
+    
+    const {
+        AmountPaid,
+        Date,
+        InvoiceNo,
+        Description,
+        To
+       } = req.body;
+  
+  try {
+    const Getone = await JAccountChart.findOne({where: {Name: AccName}})
+  
+    
+  
+    console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Getone)
+     
+    // const out = await Getone.QtyOut + Quantity
+  
+    JAccountLeger.create({
+      Date,
+      InvoiceNo,
+      Description,
+      AmountOut:"0",
+      AmountIn:AmountPaid,
+      PaidTo:To,
+    AccountName:Getone.id 
+  });
+  
+  //   // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
+  
+  JAccountChart.update(
+      {
+        TotalAmountRemaing:Number(Getone.TotalAmountRemaing) + Number(AmountPaid),
+        TotalAmountIn:Number(Getone.TotalAmountIn) + Number(AmountPaid),
+        
+      },
+      { where: { AccountName: AccName } }
+    )
+      .then(() => {
+        res.status(200).json({ message: "Record updated successfully" });
+      })
+      .catch((dbError) => {
+        res.status(500).json({ error: dbError.message });
+      });
+      
+  
+      // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+  };
+
+  const UpdateAccountByExpenses = async (req, res) => {
+    const AccName = req.params.AccName;
+    
+    const {
+        AmountPaid,
+        Date,
+        InvoiceNo,
+        Description,
+        To
+       } = req.body;
+  
+  try {
+    const Getone = await JAccountChart.findOne({where: {Name: AccName}})
+  
+    
+  
+    console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Getone)
+     
+    // const out = await Getone.QtyOut + Quantity
+  
+    JAccountLeger.create({
+      Date,
+      InvoiceNo,
+      Description,
+      AmountOut:AmountPaid,
+      AmountIn:"0",
+      PaidTo:To,
+    AccountName:Getone.id 
+  });
+  
+  //   // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
+  
+  JAccountChart.update(
+      {
+        TotalAmountRemaing:Number(Getone.TotalAmountRemaing) - Number(AmountPaid),
+        TotalAmountOut:Number(Getone.TotalAmountOut) + Number(AmountPaid),
+        
+      },
+      { where: { AccountName: AccName } }
+    )
+      .then(() => {
+        res.status(200).json({ message: "Record updated successfully" });
+      })
+      .catch((dbError) => {
+        res.status(500).json({ error: dbError.message });
+      });
+      
+  
+      // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+  };
   
   const DeleteAccountChart = async (req, res) => {
     try {
@@ -107,5 +232,7 @@ const {
     GetSingleAccountChart,
     DeleteAccountChart,
     UpdateAccountChart,
+    UpdateAccountByPayment,
+    UpdateAccountByExpenses
   };
   

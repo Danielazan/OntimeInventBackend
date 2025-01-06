@@ -2,10 +2,10 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  PillarStockReturn extends Model{}
+class  JStockReturn extends Model{}
 
 
-PillarStockReturn .init({
+JStockReturn .init({
       ProductName: {
         type: DataTypes.STRING,
         allowNull: false
@@ -46,7 +46,7 @@ PillarStockReturn .init({
     
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'PillarPoleStockReturn ' // Set the model name
+      modelName: 'JusticeStockReturn' // Set the model name
     });
 
 
@@ -54,4 +54,4 @@ PillarStockReturn .init({
 
 
 
-module.exports = {PillarStockReturn};
+module.exports = {JStockReturn};

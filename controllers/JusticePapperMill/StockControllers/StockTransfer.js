@@ -104,7 +104,7 @@ const {
     try {
       const { id } = req.params;
   
-      const Cat = await Product.destroy({
+      const Cat = await JStockTransfer.destroy({
         where: { id },
         cascade: true,
       }).then((result) => {

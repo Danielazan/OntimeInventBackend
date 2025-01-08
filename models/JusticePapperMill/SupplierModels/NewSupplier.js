@@ -18,6 +18,22 @@ class  JusticeNewSupplier extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
+      TimesSupplied: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      LastStockSupplied: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      TotalQtySupplied: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      LastQtySupplied: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       CurrentCredit: {
         type: DataTypes.STRING,
         allowNull: false
@@ -29,9 +45,8 @@ class  JusticeNewSupplier extends Model{}
       CurrentBalance: {
         type: DataTypes.STRING,
         allowNull: false
-      },
+      }
 
-      
     }, {
       sequelize, // Pass the sequelize instance
       modelName: 'JusticeNewSuppliers' // Set the model name

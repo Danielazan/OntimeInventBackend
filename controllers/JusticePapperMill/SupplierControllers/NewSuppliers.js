@@ -6,7 +6,7 @@ const path = require("path");
 
 async function deleteTable() {
     try {
-        await JSupplierLedger.drop();
+        await JusticeNewSupplier.drop();
         console.log("Table deleted successfully.");
     } catch (error) {
         console.error("Error deleting table:", error);
@@ -19,9 +19,7 @@ const CreateSupplier = async (req, res) => {
   const {
     Name,
     Address,
-    PhoneNumber,
-    
-
+    PhoneNumber
   } = req.body;
 
   try {
@@ -33,7 +31,11 @@ const CreateSupplier = async (req, res) => {
         CurrentCredit:"0",
         CurrentDebit:"0",
         CurrentBalance:"0",
-        
+        TimesSupplied:"0",
+        LastStockSupplied:"0",
+        TotalQtySupplied:"0",
+        LastQtySupplied:"0"
+
     }).then((result) => {
       res.status(200).json(result);
       return result;
@@ -110,7 +112,8 @@ const UpdateSupplierByPurchase = async (req, res) => {
       UnitPrice,
       Date,
       InvoiceNo,
-      Description
+      Description,
+      ProductName,
       
      } = req.body;
 
@@ -140,8 +143,11 @@ try {
 JusticeNewSupplier.update(
     {
       CurrentCredit:Credit,
-      
+      LastQtySupplied:Quantity,
       CurrentBalance:Number(Getone.CurrentBalance)+Credit,
+      TimesSupplied:Number(Getone.TimesSupplied)+1,
+      LastStockSupplied:ProductName,
+      TotalQtySupplied:Number(Getone.TotalQtySupplied)+Number(Quantity),
     },
     { where: { Name: SupName } }
   )

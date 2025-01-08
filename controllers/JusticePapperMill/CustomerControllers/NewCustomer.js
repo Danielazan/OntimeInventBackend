@@ -5,7 +5,7 @@ const path = require("path");
 
 async function deleteTable() {
   try {
-      await JCustomerLedger.drop();
+      await JCustomer.drop();
       console.log("Table deleted successfully.");
   } catch (error) {
       console.error("Error deleting table:", error);
@@ -42,6 +42,8 @@ const CreateCustomer = async (req, res) => {
       CurrentQtyPaidFor:"0",
       CurrentProductAmountSupplied:"0",
       CurrentNumberStockReturned:"0",
+      TotalCashPaid:"0",
+      TotalQtyBought:"0",
       
         
     }).then((result) => {
@@ -175,6 +177,8 @@ try {
       CurrentQtyPaidFor:Quantity,
       CurrentQtyOwedCustomer:QuaOwed,
       AccountBalance:Number(Getone.AccountBalance)+Number(AmountPaid),
+      TotalCashPaid:Number(Getone.TotalCashPaid)+Number(AmountPaid),
+      TotalQtyBought:Number(Getone.TotalQtyBought)+Number(Quantity)
     },
     { where: { Name: CusName } }
   )

@@ -159,8 +159,7 @@ const UpdateProductSales = async (req, res) => {
   const {
       Date,
       Quantity,
-      InvoiceNumber,
-      DatePurchased,  
+      InvoiceNumber, 
       Particulars,
       AmountPaid
      } = req.body;
@@ -188,7 +187,7 @@ try {
    JProduct.update(
     {
       TotalQtySold:Number(Getone.TotalQtySold) + Number(Quantity),
-      TotalAmountQtySold:Number(Getone.TTotalAmountQtySold) + Number(AmountPaid),
+      TotalAmountQtySold:Number(Getone.TotalAmountQtySold) + Number(AmountPaid),
       TotalQuantity:Total,
       InvoiceNumber,
     },
@@ -216,7 +215,8 @@ const UpdateProductByProduction = async (req, res) => {
       Quantity,
       InvoiceNumber,
       DatePurchased,  
-      Particulars
+      Particulars,
+      SellingPrice
      } = req.body;
 
 try {
@@ -244,6 +244,58 @@ try {
       TotalQtyProduced:Number(Getone.TotalQtyProduced) + Number(Quantity),
       TotalQuantity:Total,
       InvoiceNumber,
+      SellingPrice
+    },
+    { where: { ProductName: Name } }
+  )
+    .then(() => {
+      res.status(200).json({ message: "Record updated successfully" });
+    })
+    .catch((dbError) => {
+      res.status(500).json({ error: dbError.message });
+    });
+    
+
+    // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
+};
+
+const UpdateProductByBalance = async (req, res) => {
+  const Name = req.params.Name;
+  
+  const {
+      Date,
+      Quantity,
+      InvoiceNumber,  
+      Particulars,
+     } = req.body;
+
+try {
+  const Getone = await JProduct.findOne({where: {ProductName: Name}})
+
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Name)
+   
+  const Total = await Number(Getone.TotalQuantity) + Number(Quantity)
+ 
+
+  JStockLedger.create({
+    Date: Date,
+    InvoiceNo: InvoiceNumber,
+    Particulars,
+    QtyIn: Quantity,
+    QtyOut:"0" ,
+    Balance: Total,
+    StockName:Getone.id // Use ProductName from Getone
+});
+
+  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
+
+   JProduct.update(
+    {
+      TotalQuantity:Total,
+      InvoiceNumber
     },
     { where: { ProductName: Name } }
   )
@@ -325,5 +377,6 @@ module.exports = {
     GetSingleProductsByName,
     UpdateProductSales,
     GetAllStockCard,
-    UpdateProductByProduction
+    UpdateProductByProduction,
+    UpdateProductByBalance
 };

@@ -8,7 +8,8 @@ const {
     GetSingleProductsByName,
     UpdateProductSales,
     GetAllStockCard,
-    UpdateProductByProduction
+    UpdateProductByProduction,
+    UpdateProductByBalance
  } = require("../../../controllers/JusticePapperMill/StockControllers/Products")
 const express = require("express")
 
@@ -34,6 +35,7 @@ router.put("/jproductSales/:Name",UpdateProductSales)
 
 router.put("/jStockCards",GetAllStockCard)
 
+router.put("/jproductBalance/:Name",UpdateProductByBalance)
 
 router.delete("/jproducts/:id",DeleteProducts)
 

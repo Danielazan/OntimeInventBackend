@@ -1,8 +1,16 @@
-const { Category } = require("../../../models/Pillar Pole/StockModels/Category")
+const { Category,PProductCat } = require("../../../models/Pillar Pole/StockModels/Category")
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
+async function deleteTable() {
+  try {
+      await Category.drop();
+      console.log("Table deleted successfully.");
+  } catch (error) {
+      console.error("Error deleting table:", error);
+  }
+}
 
 
 const CreateCategory = async (req, res) => {
@@ -12,12 +20,16 @@ const CreateCategory = async (req, res) => {
 
   try {
 
-    const Cat = await Category.create({
-        Name, Location
-    }).then((result) => {
-      res.status(200).json(result);
-      return result;
+    const [category, created] = await Category.findOrCreate({
+      where: { Name },
+      defaults: {
+        Name, 
+        Location
+      },
     });
+
+    res.status(200).json({ category, created });
+    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -25,7 +37,14 @@ const CreateCategory = async (req, res) => {
 
 const GetAllcategory = async (req, res) => {
   try {
-    const Cat = await Category.findAll().then((result) => {
+    const Cat = await Category.findAll(
+      {
+        include: [{
+          model: PProductCat,
+          // as: 'JStockLedger' // Use the alias if you defined one in your model
+      }]
+      }
+    ).then((result) => {
       res.status(200).json(result);
     });
   } catch (error) {
@@ -71,6 +90,32 @@ const UpdateCategory = async (req, res) => {
   }
 };
 
+const UpdateCategoryBasedOnproduct = async (req, res) => {
+  const CatName = req.params.CatName;
+  const {Name} = req.body;
+  
+  const Getone = await Category.findOne({where: {Name: CatName}})
+
+  try {
+    // Update the database with the new image path
+    PProductCat.create(
+      {
+        Name,
+        ProCategory:Getone.id
+      }
+    )
+      .then(() => {
+        res.status(200).json({ message: `Record updated successfully ` });
+      })
+      .catch((dbError) => {
+        res.status(500).json({ error: dbError.message });
+      });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
 const DeleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,5 +136,6 @@ module.exports = {
     GetAllcategory ,
     GetSingleCategory,
     UpdateCategory,
-    DeleteCategory
+    DeleteCategory,
+    UpdateCategoryBasedOnproduct
 };

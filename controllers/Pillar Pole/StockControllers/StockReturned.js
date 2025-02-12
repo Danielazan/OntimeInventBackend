@@ -1,56 +1,45 @@
 const {
-    Cutting
-  } = require("../../../models/Pillar Pole/ProductionModels/Cutting");
+    PillarStockReturn
+  } = require("../../../models/Pillar Pole/StockModels/StockReturn");
   const multer = require("multer");
   const fs = require("fs");
   const path = require("path");
   
   async function deleteTable() {
     try {
-        await Cutting.drop();
+        await PillarStockReturn.drop();
         console.log("Table deleted successfully.");
     } catch (error) {
         console.error("Error deleting table:", error);
     }
   }
   
-  const CreateCutting = async (req, res) => {
+  const CreateReturnProduct = async (req, res) => {
     const {
-      ProductName,
-      NoBundles,
-      Date,
-      NameOperator,
-      Shift,
-      Quantity,
-      Waste,
-      Location,
-      Machine,
-      Customer,
-      MaterialsUsed,
-      BatchNo,
-      Key,
-      Type,
+        ProductName,
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
+          Location,
+          Customer,
+          InvoiceNo,
+          ItemsNo,
+          Date,
     } = req.body;
   
     try {
-      const pro = await Cutting.create({
+      const pro = await PillarStockReturn.create({
         ProductName,
-        NoBundles,
-        Date,
-        NameOperator,
-        Shift,
-        Quantity,
-        Waste,
-        Location,
-        Machine,
-        Customer,
-        MaterialsUsed,
-        BatchNo,
-        Key,
-        Type
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
+          Location,
+          Customer,
+          InvoiceNo,
+          ItemsNo,
+          Date,
       }).then((result) => {
         res.status(200).json(result);
-        // console.log(result)
         return result;
       });
     } catch (error) {
@@ -58,9 +47,9 @@ const {
     }
   };
   
-  const GetAllCuttings = async (req, res) => {
+  const GetAllReturnProducts = async (req, res) => {
     try {
-      const Cat = await Cutting.findAll().then((result) => {
+      const Cat = await PillarStockReturn.findAll().then((result) => {
         res.status(200).json(result.reverse());
       });
     } catch (error) {
@@ -68,11 +57,11 @@ const {
     }
   };
   
-  const GetSingleCutting = async (req, res) => {
+  const GetSingleReturnProduct = async (req, res) => {
     const ProductId = req.params.id;
   
     try {
-      const Getone = await Cutting.findOne({ where: { id: ProductId } }).then(
+      const Getone = await PillarStockReturn.findOne({ where: { id: ProductId } }).then(
         (result) => {
           res.status(200).json({ result });
         }
@@ -82,44 +71,34 @@ const {
     }
   };
   
-  const UpdateCutting = async (req, res) => {
+  const UpdateReturnProduct = async (req, res) => {
     const Productid = req.params.id;
   
     const {
-      ProductName,
-      NoBundles,
-      Date,
-      NameOperator,
-      Shift,
-      Quantity,
-      Waste,
-      Location,
-      Machine,
-      Customer,
-      MaterialsUsed,
-      BatchNo,
-      Key,
-      Type,
+        ProductName,
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
+          Location,
+          Customer,
+          InvoiceNo,
+          ItemsNo,
+          Date,
     } = req.body;
   
     try {
       // Update the database with the new image path
-      Cutting.update(
+      PillarStockReturn.update(
         {
-          ProductName,
-          NoBundles,
-          Date,
-          NameOperator,
-          Shift,
-          Quantity,
-          Waste,
+            ProductName,
+          QtyRecived,
+          Unitprice,
+          PurchasePrice,
           Location,
-          Machine,
           Customer,
-          MaterialsUsed,
-          BatchNo,
-          Key,
-          Type,
+          InvoiceNo,
+          ItemsNo,
+          Date,
         },
         { where: { id: Productid } }
       )
@@ -134,11 +113,11 @@ const {
     }
   };
   
-  const DeleteCutting = async (req, res) => {
+  const DeleteReturnProduct = async (req, res) => {
     try {
       const { id } = req.params;
   
-      const Cat = await Cutting.destroy({
+      const Cat = await PillarStockReturn.destroy({
         where: { id },
         cascade: true,
       }).then((result) => {
@@ -150,10 +129,10 @@ const {
   };
   
   module.exports = {
-      CreateCutting,
-      GetAllCuttings,
-      GetSingleCutting,
-      UpdateCutting,
-      DeleteCutting,
+    CreateReturnProduct,
+    GetAllReturnProducts,
+    GetSingleReturnProduct,
+    UpdateReturnProduct,
+    DeleteReturnProduct,
   };
   

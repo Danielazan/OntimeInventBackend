@@ -2,15 +2,31 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  Cutting extends Model{}
+class  PillarStockUsed extends Model{}
 
 
- Cutting.init({
+PillarStockUsed.init({
       ProductName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      NoBundles: {
+      Roll: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      QuantityUsed: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      UsedFor: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Category: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      IssueNumber: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -18,23 +34,11 @@ class  Cutting extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
-      NameOperator: {
+      Location: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      Shift: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Quantity: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Waste: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Location:{
+      OperatorName: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -42,30 +46,12 @@ class  Cutting extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      Customer:{
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      MaterialsUsed:{
-        type: DataTypes.STRING(1000),
-        allowNull: false
-      },
-      BatchNo: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Key: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Type:{
-        type: DataTypes.STRING,
-        allowNull: false
-      },
+   
       
+    
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'Cuttings' // Set the model name
+      modelName: 'PillarStockUsed' // Set the model name
     });
 
 
@@ -73,4 +59,4 @@ class  Cutting extends Model{}
 
 
 
-module.exports = {Cutting};
+module.exports = {PillarStockUsed};

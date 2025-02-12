@@ -1,56 +1,44 @@
 const {
-    Cutting
-  } = require("../../../models/Pillar Pole/ProductionModels/Cutting");
+    StockOpeningBal
+  } = require("../../../models/Pillar Pole/StockModels/StockOpeningBal");
   const multer = require("multer");
   const fs = require("fs");
   const path = require("path");
   
   async function deleteTable() {
     try {
-        await Cutting.drop();
+        await StockOpeningBal.drop();
         console.log("Table deleted successfully.");
     } catch (error) {
         console.error("Error deleting table:", error);
     }
   }
   
-  const CreateCutting = async (req, res) => {
+  const CreateStockproduction = async (req, res) => {
     const {
-      ProductName,
-      NoBundles,
-      Date,
-      NameOperator,
-      Shift,
-      Quantity,
-      Waste,
-      Location,
-      Machine,
-      Customer,
-      MaterialsUsed,
-      BatchNo,
-      Key,
-      Type,
+        ProductName,
+          Location,
+          Quantity,
+          CostPrice,
+          Description,
+          TransNo,
+          Category,
+          Date
+              
     } = req.body;
   
     try {
-      const pro = await Cutting.create({
+      const pro = await StockOpeningBal.create({
         ProductName,
-        NoBundles,
-        Date,
-        NameOperator,
-        Shift,
-        Quantity,
-        Waste,
-        Location,
-        Machine,
-        Customer,
-        MaterialsUsed,
-        BatchNo,
-        Key,
-        Type
+          Location,
+          Quantity,
+          CostPrice,
+          Description,
+          TransNo,
+          Category,
+          Date
       }).then((result) => {
         res.status(200).json(result);
-        // console.log(result)
         return result;
       });
     } catch (error) {
@@ -58,9 +46,9 @@ const {
     }
   };
   
-  const GetAllCuttings = async (req, res) => {
+  const GetAllStockproduction = async (req, res) => {
     try {
-      const Cat = await Cutting.findAll().then((result) => {
+      const Cat = await StockOpeningBal.findAll().then((result) => {
         res.status(200).json(result.reverse());
       });
     } catch (error) {
@@ -68,11 +56,11 @@ const {
     }
   };
   
-  const GetSingleCutting = async (req, res) => {
+  const GetSingleStockproduction = async (req, res) => {
     const ProductId = req.params.id;
   
     try {
-      const Getone = await Cutting.findOne({ where: { id: ProductId } }).then(
+      const Getone = await StockOpeningBal.findOne({ where: { id: ProductId } }).then(
         (result) => {
           res.status(200).json({ result });
         }
@@ -82,44 +70,32 @@ const {
     }
   };
   
-  const UpdateCutting = async (req, res) => {
+  const UpdateStockproduction = async (req, res) => {
     const Productid = req.params.id;
   
     const {
-      ProductName,
-      NoBundles,
-      Date,
-      NameOperator,
-      Shift,
-      Quantity,
-      Waste,
-      Location,
-      Machine,
-      Customer,
-      MaterialsUsed,
-      BatchNo,
-      Key,
-      Type,
+        ProductName,
+          Location,
+          Quantity,
+          CostPrice,
+          Description,
+          TransNo,
+          Category,
+          Date
     } = req.body;
   
     try {
       // Update the database with the new image path
-      Cutting.update(
+      StockOpeningBal.update(
         {
-          ProductName,
-          NoBundles,
-          Date,
-          NameOperator,
-          Shift,
-          Quantity,
-          Waste,
-          Location,
-          Machine,
-          Customer,
-          MaterialsUsed,
-          BatchNo,
-          Key,
-          Type,
+            ProductName,
+            Location,
+            Quantity,
+            CostPrice,
+            Description,
+            TransNo,
+            Category,
+            Date
         },
         { where: { id: Productid } }
       )
@@ -134,11 +110,11 @@ const {
     }
   };
   
-  const DeleteCutting = async (req, res) => {
+  const DeleteStockproduction = async (req, res) => {
     try {
       const { id } = req.params;
   
-      const Cat = await Cutting.destroy({
+      const Cat = await StockOpeningBal.destroy({
         where: { id },
         cascade: true,
       }).then((result) => {
@@ -150,10 +126,10 @@ const {
   };
   
   module.exports = {
-      CreateCutting,
-      GetAllCuttings,
-      GetSingleCutting,
-      UpdateCutting,
-      DeleteCutting,
+      CreateStockproduction,
+      GetAllStockproduction,
+      GetSingleStockproduction,
+      UpdateStockproduction,
+      DeleteStockproduction,
   };
   

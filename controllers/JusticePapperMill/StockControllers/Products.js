@@ -275,7 +275,7 @@ const UpdateProductByBalance = async (req, res) => {
 try {
   const Getone = await JProduct.findOne({where: {ProductName: Name}})
 
-  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Name)
+  console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Name)
    
   const Total = await Number(Getone.TotalQuantity) + Number(Quantity)
  
@@ -287,10 +287,8 @@ try {
     QtyIn: Quantity,
     QtyOut:"0" ,
     Balance: Total,
-    StockName:Getone.id // Use ProductName from Getone
+    StockName:Getone.id 
 });
-
-  // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
 
    JProduct.update(
     {
@@ -305,9 +303,7 @@ try {
     .catch((dbError) => {
       res.status(500).json({ error: dbError.message });
     });
-    
 
-    // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
 } catch (error) {
   res.status(400).json({ error: error.message });
 }

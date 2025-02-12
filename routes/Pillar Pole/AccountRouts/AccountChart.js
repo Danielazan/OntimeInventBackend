@@ -3,7 +3,10 @@ const {
   GetAllAccountCharts,
   GetSingleAccountChart,
   DeleteAccountChart,
-  UpdateAccountChart
+  UpdateAccountChart,
+  UpdateAccountByPayment,
+  UpdateAccountByExpenses,
+  UpdateAccountByTransfer
  } = require("../../../controllers/Pillar Pole/AccountControllers/AccountChart")
 const express = require("express")
 
@@ -16,6 +19,12 @@ router.get("/accChart", GetAllAccountCharts)
 router.get("/accChart/:id",GetSingleAccountChart)
 
 router.put("/accChart/:id",UpdateAccountChart)
+
+router.put("/accChartPay/:AccName",UpdateAccountByPayment)
+
+router.put("/accChartEx/:AccName",UpdateAccountByExpenses)
+
+router.post("/accCharTrans",UpdateAccountByTransfer)
 
 router.delete("/accChart/:id",DeleteAccountChart)
 

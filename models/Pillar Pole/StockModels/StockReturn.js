@@ -2,15 +2,39 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  Cutting extends Model{}
+class  PillarStockReturn extends Model{}
 
 
- Cutting.init({
+PillarStockReturn .init({
       ProductName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      NoBundles: {
+      QtyRecived: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Unitprice: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      PurchasePrice: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Location: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Customer: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      InvoiceNo: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      ItemsNo: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -18,54 +42,11 @@ class  Cutting extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
-      NameOperator: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Shift: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Quantity: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Waste: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Location:{
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Machine: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Customer:{
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      MaterialsUsed:{
-        type: DataTypes.STRING(1000),
-        allowNull: false
-      },
-      BatchNo: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Key: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      Type:{
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       
+    
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'Cuttings' // Set the model name
+      modelName: 'PillarPoleStockReturn' // Set the model name
     });
 
 
@@ -73,4 +54,4 @@ class  Cutting extends Model{}
 
 
 
-module.exports = {Cutting};
+module.exports = {PillarStockReturn};

@@ -26,30 +26,31 @@ const CreateCustomer = async (req, res) => {
 
   try {
 
-    const pro = await JCustomer.create({
+    const [Customer, created] = await JCustomer.findOrCreate({
+      where: { Name },
+      defaults: {
         Name,
-      Address,
-      PhoneNumber,
-      CreditLimit,
-      OpeningBalCredit,
-      OpeningBalDebit,
-      CurrentCashPaid:"0",
-      CurrentAmountOwedCustomer:"0",
-      CurrentQtySupplied:"0",
-      CurrentQtyOwedCustomer:"0",
-      AccountBalance:"0",
-      CurrentStockowed:"0",
-      CurrentQtyPaidFor:"0",
-      CurrentProductAmountSupplied:"0",
-      CurrentNumberStockReturned:"0",
-      TotalCashPaid:"0",
-      TotalQtyBought:"0",
+        Address,
+        PhoneNumber,
+        CreditLimit,
+        OpeningBalCredit,
+        OpeningBalDebit,
+        CurrentCashPaid:"0",
+        CurrentAmountOwedCustomer:"0",
+        CurrentQtySupplied:"0",
+        CurrentQtyOwedCustomer:"0",
+        AccountBalance:"0",
+        CurrentStockowed:"0",
+        CurrentQtyPaidFor:"0",
+        CurrentProductAmountSupplied:"0",
+        CurrentNumberStockReturned:"0",
+        TotalCashPaid:"0",
+        TotalQtyBought:"0",
+      }
       
         
-    }).then((result) => {
-      res.status(200).json(result);
-      return result;
-    });
+    })
+    res.status(200).json({ Customer, created });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

@@ -3,7 +3,10 @@ const {
     GetAllCustomer ,
     GetSingleCustomer,
     DeleteCustomer,
-    UpdateCustomer
+    UpdateCustomer,
+    UpdateCustomerByPayment,
+    GetSingleCustomerByName,
+    UpdateCustomerBySales
  } = require("../../../controllers/Pillar Pole/CustomerController/NewCustomer")
 const express = require("express")
 
@@ -15,8 +18,13 @@ router.get("/customer",GetAllCustomer)
 
 router.get("/customer/:id",GetSingleCustomer)
 
+router.get("/customerN/:CusName",GetSingleCustomerByName)
+
 router.put("/customer/:id",UpdateCustomer)
 
+router.put("/customerByVo/:CusName",UpdateCustomerByPayment)
+
+router.put("/customerBySales/:CusName",UpdateCustomerBySales)
 
 router.delete("/customer/:id",DeleteCustomer)
 

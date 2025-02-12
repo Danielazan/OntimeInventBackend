@@ -5,6 +5,15 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
+async function deleteTable() {
+  try {
+    await StockTransfer.drop();
+    console.log("Table deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting table:", error);
+  }
+}
+
 const CreateTransfer = async (req, res) => {
   const {
     ProductName,

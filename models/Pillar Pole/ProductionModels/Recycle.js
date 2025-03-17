@@ -18,7 +18,7 @@ class  Recycle extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
-      OperatorName: {
+      NameOperator: {
         type: DataTypes.STRING,
         allowNull: false
       },

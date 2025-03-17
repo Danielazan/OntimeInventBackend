@@ -19,7 +19,7 @@ const {
         ProductName,
           Location,
           Machine,
-          OperatorName,
+          NameOperator,
           Shift,
           Quantity,
           NoItems,
@@ -34,7 +34,7 @@ const {
         ProductName,
           Location,
           Machine,
-          OperatorName,
+          NameOperator,
           Shift,
           Quantity,
           NoItems,
@@ -59,6 +59,7 @@ const {
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
+    
   };
   
   const GetSingleRecycle = async (req, res) => {

@@ -55,7 +55,7 @@ class  Printing extends Model{}
         allowNull: false
       },
       MaterialsUsed: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: false
       },
       PrintingMachineUsed: {

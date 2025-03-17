@@ -43,7 +43,7 @@ NewProduction.init(
       allowNull: false,
     },
     MaterialsUsed: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false,
     },
     Type: {

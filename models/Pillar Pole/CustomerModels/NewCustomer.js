@@ -77,7 +77,7 @@ class  Customer extends Model{}
       },
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'JusticeCustomers' // Set the model name
+      modelName: 'PillarPoleCustomers' // Set the model name
     });
 
 

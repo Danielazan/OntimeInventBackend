@@ -79,6 +79,10 @@ const EPumpAttendants= require("./routes/EfficientLPG/SalesRoutes/PumpAttendants
 const ESalesEntryCredit= require("./routes/EfficientLPG/SalesRoutes/SalesEntryCredit")
 const ERefund= require("./routes/EfficientLPG/CustomersRoutes/Refund")
 const ECusDeposit= require("./routes/EfficientLPG/CustomersRoutes/Deposit")
+const EfficientExpaenseAccount =require("./routes/EfficientLPG/AccountRoutes/AccountChart")
+const EfficientPaymentVocher =require("./routes/EfficientLPG/AccountRoutes/PaymentVocher")
+const EfficientBankDepositTransfers =require("./routes/EfficientLPG/AccountRoutes/BankDepositTransfers")
+const EfficientBankOpeningBal =require("./routes/EfficientLPG/AccountRoutes/BankOpeningBal")
 
 
 
@@ -169,6 +173,10 @@ app.use("/api",EPumpAttendants)
 app.use("/api",ESalesEntryCredit)
 app.use("/api",ERefund)
 app.use("/api",ECusDeposit)
+app.use("/api",EfficientExpaenseAccount)
+app.use("/api",EfficientPaymentVocher)
+app.use("/api",EfficientBankDepositTransfers)
+app.use("/api",EfficientBankOpeningBal)
 
  
  

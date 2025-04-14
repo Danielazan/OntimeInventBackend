@@ -9,7 +9,8 @@ const {
     UpdateProductSales,
     GetAllStockCard,
     UpdateProductByProduction,
-    UpdateProductByBalance
+    UpdateProductByBalance,
+    UpdateSalePrice 
  } = require("../../../controllers/JusticePapperMill/StockControllers/Products")
 const express = require("express")
 
@@ -30,6 +31,8 @@ router.put("/jproducts/:id",UpdateProducts)
 router.put("/jproductPurchase/:Name",UpdateProductsPurchase)
 
 router.put("/jproductProduction/:Name",UpdateProductByProduction)
+
+router.put("/jEditPrice/:id",UpdateSalePrice)
 
 router.put("/jproductSales/:Name",UpdateProductSales)
 

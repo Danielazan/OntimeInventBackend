@@ -1,4 +1,5 @@
 const { ESalesEntryCredit } = require("../../../models/EfficientLPG/SalesModels/SalesEntryCredit");
+const {ECustomer} =require("../../../models/EfficientLPG/CustomerModels/NewCustomer")
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
@@ -18,6 +19,7 @@ const CreateSalesEntry = async (req, res) => {
         Date,
         Location,
         InvoiceNo,
+        CustomerName,
      } = req.body;
 
   try {
@@ -33,6 +35,7 @@ const CreateSalesEntry = async (req, res) => {
         Date,
         Location,
         InvoiceNo,
+        CustomerName
     }).then((result) => {
       res.status(200).json(result);
       return result;
@@ -79,9 +82,21 @@ const UpdateSalesEntry = async (req, res) => {
         Date,
         Location,
         InvoiceNo,
+        CustomerName
     } = req.body;
 
   try {
+
+    const [Customer, created] = await ECustomer.findOrCreate({
+      where: { Name:CustomerName },
+      defaults: {
+        Address,
+        PhoneNumber,
+        CreditLimit,
+        OpeningBalCredit,
+        OpeningBalDebit,
+      },
+    });
     // Update the database with the new image path
     ESalesEntryCredit.update(
       {
@@ -94,6 +109,7 @@ const UpdateSalesEntry = async (req, res) => {
         Date,
         Location,
         InvoiceNo,
+        CustomerName
       },
       { where: { id: SalesRepid } }
     )

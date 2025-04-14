@@ -2,35 +2,23 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  ESalesEntryCredit extends Model{}
+class  EBankDepositTransfer extends Model{}
 
 
- ESalesEntryCredit.init({
-      ProductName: {
+ EBankDepositTransfer.init({
+    ProductName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      PumpNo: {
+      PaidTo: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      UnitPrice: {
+      Description: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      SoldTo: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      QunatiySold: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      PumpAttendant: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      CustomerName: {
+      Amount: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -38,19 +26,26 @@ class  ESalesEntryCredit extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
+      TellerNo: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      Name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      PayingAccount: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       Location: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      InvoiceNo: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-
       
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'EfficientSalesEntryCredits' // Set the model name
+      modelName: 'EfficientBankDepositTransfers' // Set the model name
     });
 
 
@@ -58,4 +53,4 @@ class  ESalesEntryCredit extends Model{}
 
 
 
-module.exports = {ESalesEntryCredit};
+module.exports = {EBankDepositTransfer};

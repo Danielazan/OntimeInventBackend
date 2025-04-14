@@ -3,7 +3,8 @@ const {
     GetAllPumpAttendants ,
     GetSinglePumpAttendants,
     DeletePumpAttendants,
-    UpdatePumpAttendants
+    UpdatePumpAttendants,
+    UpdateAttendantBySales
  } = require("../../../controllers/EfficientLPG/SalesControllers/PumpAttendant")
 const express = require("express")
 
@@ -17,6 +18,7 @@ router.get("/EpmpAttendants/:id",GetSinglePumpAttendants)
 
 router.put("/EpmpAttendants/:id",UpdatePumpAttendants)
 
+router.put("/EAttendsales/:Name",UpdateAttendantBySales)
 
 router.delete("/EpmpAttendants/:id",DeletePumpAttendants)
 

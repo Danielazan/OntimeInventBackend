@@ -1,4 +1,5 @@
 const { ESalesEntry } = require("../../../models/EfficientLPG/SalesModels/SalesEntry");
+const {ECustomer} =require("../../../models/EfficientLPG/CustomerModels/NewCustomer")
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
@@ -9,25 +10,28 @@ const CreateSalesEntry = async (req, res) => {
   
 
   const { ProductName,
-  UnitPrice,
-  PumpNo,
-  PumpAttendant,
-  OpeningReading,
-  Date,
-  ClosingReading,
-  QuantitySold,
-  Total,
-  Location,
-  PhoneNo,
-  Address,
-  Testing,
-  Variation,
-  Deeping,
-  InvoiceNo,
-  CashPaid,
-  Pos,
-  Transfer,
-  Remark, } = req.body;
+          UnitPrice,
+          PumpNo,
+          PumpAttendant,
+          OpeningReading,
+          Date,
+          ClosingReading,
+          QuantitySold,
+          Total,
+          Location,
+          PhoneNo,
+          Address,
+          Testing,
+          Variation,
+          Deeping,
+          InvoiceNo,
+          CashPaid,
+          Pos,
+          Transfer,
+          Remark,
+          CustomerName,
+          Customer
+ } = req.body;
 
   try {
 
@@ -53,6 +57,8 @@ const CreateSalesEntry = async (req, res) => {
         Pos,
         Transfer,
         Remark,
+        Customer,
+        CustomerName
     }).then((result) => {
       res.status(200).json(result);
       return result;
@@ -91,51 +97,63 @@ const UpdateSalesEntry = async (req, res) => {
     
     const {
         ProductName,
-  UnitPrice,
-  PumpNo,
-  PumpAttendant,
-  OpeningReading,
-  Date,
-  ClosingReading,
-  QuantitySold,
-  Total,
-  Location,
-  PhoneNo,
-  Address,
-  Testing,
-  Variation,
-  Deeping,
-  InvoiceNo,
-  CashPaid,
-  Pos,
-  Transfer,
-  Remark,
+        UnitPrice,
+        PumpNo,
+        PumpAttendant,
+        OpeningReading,
+        Date,
+        ClosingReading,
+        QuantitySold,
+        Total,
+        Location,
+        PhoneNo,
+        Address,
+        Testing,
+        Variation,
+        Deeping,
+        InvoiceNo,
+        CashPaid,
+        Pos,
+        Transfer,
+        Remark,
+        CustomerName
     } = req.body;
 
   try {
+    const [Customer, created] = await ECustomer.findOrCreate({
+      where: { Name:CustomerName },
+      defaults: {
+        Address,
+        PhoneNumber,
+        CreditLimit,
+        OpeningBalCredit,
+        OpeningBalDebit,
+      },
+    });
     // Update the database with the new image path
     ESalesEntry.update(
       {
         ProductName,
-  UnitPrice,
-  PumpNo,
-  PumpAttendant,
-  OpeningReading,
-  Date,
-  ClosingReading,
-  QuantitySold,
-  Total,
-  Location,
-  PhoneNo,
-  Address,
-  Testing,
-  Variation,
-  Deeping,
-  InvoiceNo,
-  CashPaid,
-  Pos,
-  Transfer,
-  Remark,
+        UnitPrice,
+        PumpNo,
+        PumpAttendant,
+        OpeningReading,
+        Date,
+        ClosingReading,
+        QuantitySold,
+        Total,
+        Location,
+        PhoneNo,
+        Address,
+        Testing,
+        Variation,
+        Deeping,
+        InvoiceNo,
+        CashPaid,
+        Pos,
+        Transfer,
+        Remark,
+        CustomerName
       },
       { where: { id: SalesRepid } }
     )
@@ -149,8 +167,6 @@ const UpdateSalesEntry = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-
 
 const DeleteSalesEntry = async (req, res) => {
   try {

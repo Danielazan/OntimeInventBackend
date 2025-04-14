@@ -165,12 +165,14 @@ const {
         Date,
         InvoiceNo,
         Description,
-        To
+        To,
+        ExpenseAccountName
        } = req.body;
   
   try {
-    const Getone = await JAccountChart.findOne({where: {Name: AccName}})
+    const Getone = await JAccountChart.findOne({where: {AccountName: AccName}})
   
+      const GetTo = await JAccountChart.findOne({where: {AccountName: ExpenseAccountName}})
     
   
     console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Getone)
@@ -184,7 +186,7 @@ const {
       AmountOut:AmountPaid,
       AmountIn:"0",
       PaidTo:To,
-    AccountName:Getone.id 
+      AccountName:Getone.id 
   });
   
   //   // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",ledger)
@@ -197,6 +199,26 @@ const {
       },
       { where: { AccountName: AccName } }
     )
+    
+    JAccountLeger.create({
+      Date,
+      InvoiceNo,
+      Description,
+      AmountOut:"0",
+      AmountIn:AmountPaid,
+      PaidTo:To,
+      AccountName:GetTo.id 
+    })
+
+    JAccountChart.update(
+      {
+        TotalAmountRemaing:Number(GetTo.TotalAmountRemaing) + Number(AmountPaid),
+        TotalAmountIn:Number(GetTo.TotalAmountOut) + Number(AmountPaid),
+        
+      },
+      { where: { AccountName: ExpenseAccountName } }
+    )
+
       .then(() => {
         res.status(200).json({ message: "Record updated successfully" });
       })

@@ -54,6 +54,10 @@ class  ESalesEntry extends Model{}
         type: DataTypes.STRING,
         allowNull: false
       },
+      Customer: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       Testing: {
         type: DataTypes.STRING,
         allowNull: false
@@ -83,6 +87,10 @@ class  ESalesEntry extends Model{}
         allowNull: false
       },
       Remark: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      CustomerName: {
         type: DataTypes.STRING,
         allowNull: false
       },

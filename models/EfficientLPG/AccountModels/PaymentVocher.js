@@ -2,35 +2,15 @@ const {Model, DataTypes } = require("sequelize")
 
 const sequelize = require("../../../database")
 
-class  ESalesEntryCredit extends Model{}
+class  EPaymentVocher extends Model{}
 
 
- ESalesEntryCredit.init({
-      ProductName: {
+ EPaymentVocher.init({
+      ExpenseAccountName: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      PumpNo: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      UnitPrice: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      SoldTo: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      QunatiySold: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      PumpAttendant: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      CustomerName: {
+      SalesSupplierRep: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -38,19 +18,29 @@ class  ESalesEntryCredit extends Model{}
         type: DataTypes.DATE,
         allowNull: false
       },
+      PayingAccount: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       Location: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      InvoiceNo: {
+      Description: {
         type: DataTypes.STRING,
         allowNull: false
       },
-
-      
+      PV: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      AmountPaid: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
     }, {
       sequelize, // Pass the sequelize instance
-      modelName: 'EfficientSalesEntryCredits' // Set the model name
+      modelName: 'EFficientPaymentVochers' // Set the model name
     });
 
 
@@ -58,4 +48,4 @@ class  ESalesEntryCredit extends Model{}
 
 
 
-module.exports = {ESalesEntryCredit};
+module.exports = {EPaymentVocher};

@@ -3,7 +3,9 @@ const {
     GetAllSupplier ,
     GetSingleSupplier,
     DeleteSupplier,
-    UpdateSupplier
+    UpdateSupplier,
+    UpdateSupplierByPurchase,
+    UpdateSupplierByPayment
  } = require("../../../controllers/EfficientLPG/SuppliersControllers/NewSuppliers")
 const express = require("express")
 
@@ -17,6 +19,9 @@ router.get("/enewsupplier/:id",GetSingleSupplier)
 
 router.put("/enewsupplier/:id",UpdateSupplier)
 
+router.put("/enSuppliersPay/:SupName",UpdateSupplierByPayment)
+
+router.put("/EsupplierPurchase/:SupName",UpdateSupplierByPurchase)
 
 router.delete("/enewsupplier/:id",DeleteSupplier)
 

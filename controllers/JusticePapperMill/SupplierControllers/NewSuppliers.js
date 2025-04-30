@@ -52,6 +52,7 @@ const GetAllSupplier = async (req, res) => {
         model: JSupplierLedger,
         // as: 'JStockLedger' // Use the alias if you defined one in your model
     }]
+    
     }).then((result) => {
       res.status(200).json(result.reverse());
     });
@@ -120,7 +121,7 @@ const UpdateSupplierByPurchase = async (req, res) => {
 try {
   const Getone = await JusticeNewSupplier.findOne({where: {Name: SupName}})
 
-  let Credit=Number(UnitPrice)*Number(Quantity)
+  let debit=Number(UnitPrice)*Number(Quantity)
   
   console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",Getone)
    
@@ -132,9 +133,9 @@ try {
     Description,
     Quantity,
     UnitPrice,
-    Credit,
-    Debit:"0",
-    Balance:Number(Getone.CurrentBalance)+Credit,
+    Credit:"0",
+    Debit:debit,
+    Balance:Number(Getone.CurrentBalance)+debit,
     SupplierName:Getone.id 
 });
 
@@ -142,9 +143,9 @@ try {
 
 JusticeNewSupplier.update(
     {
-      CurrentCredit:Credit,
+      CurrentDebit:debit,
       LastQtySupplied:Quantity,
-      CurrentBalance:Number(Getone.CurrentBalance)+Credit,
+      CurrentBalance:Number(Getone.CurrentBalance)+debit,
       TimesSupplied:Number(Getone.TimesSupplied)+1,
       LastStockSupplied:ProductName,
       TotalQtySupplied:Number(Getone.TotalQtySupplied)+Number(Quantity),
@@ -193,7 +194,7 @@ try {
     UnitPrice:"0",
     Credit,
     Debit,
-    Balance:!NoneBalannce ? Number(Getone.CurrentBalance)-Number(Debit) : NoneBalannce,
+    Balance:!NoneBalannce ? Number(Getone.CurrentBalance)-Number(Credit) : NoneBalannce,
     SupplierName:Getone.id 
 });
 

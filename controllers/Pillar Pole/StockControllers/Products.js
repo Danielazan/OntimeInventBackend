@@ -139,6 +139,37 @@ const GetAllStockCard = async (req, res) => {
   }
 };
 
+const UpdateSalePrice = async (req, res) => {
+  const id = req.params.id;
+  
+  const {
+      price
+     } = req.body;
+
+try {
+  const Getone = await Product.findOne({where: {id:id}})
+
+   await Product.update(
+    {
+      SellingPrice:price
+    },
+    { where: { id } }
+  )
+    .then(() => {
+      res.status(200).json({ message: "Record updated successfully" });
+    })
+    .catch((dbError) => {
+      res.status(500).json({ error: dbError.message });
+    });
+
+    
+
+    // console.log(">>>>>>>>>>>>>>>>>>>Product Name coming from sstock pruchase",reload)
+} catch (error) {
+  res.status(400).json({ error: error.message });
+}
+};
+
 const UpdateProductsPurchase = async (req, res) => {
   const Name = req.params.Name;
 
@@ -842,5 +873,6 @@ module.exports = {
   GetAllLocation,
   CreateLocatoin,
   DeleteLocation,
-  UpdateLocation
+  UpdateLocation,
+  UpdateSalePrice
 };

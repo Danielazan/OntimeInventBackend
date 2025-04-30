@@ -32,6 +32,7 @@ const Acheads =require("./routes/Pillar Pole/AccountRouts/AcHeads")
 const AccountChart =require("./routes/Pillar Pole/AccountRouts/AccountChart")
 const SupplierReport =require("./routes/Pillar Pole/SupplierRoutes/SupplierReport")
 const PaymentVocher =require("./routes/Pillar Pole/AccountRouts/Payment")
+const PillarOpenCloseBal =require("./routes/Pillar Pole/StockRouts/ProductOpenCloseBal")
 
 // justice Apis
 const JusticeCatory =require("./routes/JusticePapperMill/StockRoutes/Category")
@@ -86,7 +87,9 @@ const EfficientBankOpeningBal =require("./routes/EfficientLPG/AccountRoutes/Bank
 
 
 
-
+// Daily FUnctions Runs
+const cron = require('node-cron');
+const {SetAllOpeningQuantities}  =require("./controllers/Pillar Pole/StockControllers/StockOpenCloseBal")
 
 
 require("dotenv").config()
@@ -128,6 +131,7 @@ app.use("/api",Acheads)
 app.use("/api",AccountChart)
 app.use("/api",PaymentVocher)
 app.use("/api",PStockReturn)
+app.use("/api",PillarOpenCloseBal)
 
 // Justices Apis
 app.use("/api",JusticeCatory)
@@ -180,7 +184,13 @@ app.use("/api",EfficientBankOpeningBal)
 
  
  
-
+// // Daily FUnctions
+cron.schedule('0 0 6,19 * * *', SetAllOpeningQuantities, {
+    timezone: "Africa/Lagos"
+});
+// cron.schedule('*/2 * * * * *', SetAllOpeningQuantities, {
+//     timezone: "Africa/Lagos"
+// });
 
 
 sequelize.sync().then(()=>{

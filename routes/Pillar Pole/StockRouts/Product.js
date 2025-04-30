@@ -16,7 +16,8 @@ const {
     GetAllLocation,
     CreateLocatoin,
     DeleteLocation,
-    UpdateLocation
+    UpdateLocation,
+    UpdateSalePrice
  } = require("../../../controllers/Pillar Pole/StockControllers/Products")
 const express = require("express")
 
@@ -37,6 +38,8 @@ router.get("/productsproName",GetSingleProductsByName)
 router.get("/products/:id",GetSingleProducts)
 
 router.put("/products/:id",UpdateProducts)
+
+router.put("/PEditPrice/:id",UpdateSalePrice)
 
 router.put("/productsLocation/:id",UpdateLocation)
 

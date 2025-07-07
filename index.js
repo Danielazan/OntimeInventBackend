@@ -3,6 +3,7 @@ const cors = require("cors")
 const helmet = require("helmet")
 const sequelize = require('./database')
 const path = require("path")
+
 const category = require("./routes/Pillar Pole/StockRouts/Category")
 const Products = require("./routes/Pillar Pole/StockRouts/Product")
 const Purchase = require("./routes/Pillar Pole/StockRouts/Purchase")
@@ -85,7 +86,7 @@ const EfficientPaymentVocher =require("./routes/EfficientLPG/AccountRoutes/Payme
 const EfficientBankDepositTransfers =require("./routes/EfficientLPG/AccountRoutes/BankDepositTransfers")
 const EfficientBankOpeningBal =require("./routes/EfficientLPG/AccountRoutes/BankOpeningBal")
 
-
+const update = require("./routes/FileRoutes/File")
 
 // Daily FUnctions Runs
 const cron = require('node-cron');
@@ -100,6 +101,8 @@ app.use(cors())
 // app.use(helmet())
 app.use(express.json())
 app.use(express.static("public"))
+
+app.use("/api",update)
 
 
 app.use("/api",category)

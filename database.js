@@ -43,30 +43,32 @@
 
 
 
-// const { Sequelize } = require('sequelize');
-
-// const sequelize = new Sequelize("ontime", "ontime", "ontime", {
-//   host: "192.168.0.229",      // Replace with your Ubuntu server's local IP
-//   port: 5432,
-//   dialect: "postgres",
-//   dialectOptions: {
-//     // Remove SSL options if your local PostgreSQL doesn't use SSL
-//     // ssl: {
-//     //   rejectUnauthorized: false,
-//     // },
-//   },
-// });
-
-// module.exports = sequelize;
-
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize("ontime", "ontime", "ontime", {
-  host: "localhost",    // Use localhost since both are on the same machine
-  port: 5432,           // Default PostgreSQL port
+  host: "192.168.0.229",      // Replace with your Ubuntu server's local IP
+  port: 5432,
   dialect: "postgres",
-  // Usually no SSL needed for local connection
-  // dialectOptions: { ssl: false },
+  dialectOptions: {
+    // Remove SSL options if your local PostgreSQL doesn't use SSL
+    // ssl: {
+    //   rejectUnauthorized: false,
+    // },
+  },
 });
 
 module.exports = sequelize;
+
+// Use this when deploying to server
+
+// const { Sequelize } = require('sequelize');
+
+// const sequelize = new Sequelize("ontime", "ontime", "ontime", {
+//   host: "localhost",    // Use localhost since both are on the same machine
+//   port: 5432,           // Default PostgreSQL port
+//   dialect: "postgres",
+//   // Usually no SSL needed for local connection
+//   // dialectOptions: { ssl: false },
+// });
+
+// module.exports = sequelize;
